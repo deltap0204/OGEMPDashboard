@@ -12,28 +12,12 @@ import {
   AvatarUploadForm
 } from '@app/components/Forms';
 import { Edit } from '@material-ui/icons';
-import { DefaultCard, DescriptionCard } from '@app/components/Cards';
+import { DefaultCard } from '@app/components/Cards';
 import { EditPanel } from '@app/components/Panels';
 import { CustomDialog, CustomCheckBox } from '@app/components/Custom';
 import { getNotificationOpt } from '@app/constants/Notifications';
 import graphql from '@app/graphql';
 import * as globalStyles from '@app/constants/globalStyles';
-import district from '@app/constants/Notifications/district';
-
-const NoneSelected = () => {
-  return (
-    <>
-      <Typography
-        gutterBottom
-        variant="subtitle1"
-        component="h2"
-        style={{ marginLeft: 5 }}
-      >
-        Null
-      </Typography>
-    </>
-  );
-};
 
 const SchoolEdit = ({
   forceSaveDocId,
@@ -385,156 +369,64 @@ const SchoolEdit = ({
         justify="flex-start"
         alignItems="flex-start"
       >
-        <Grid item xs={12} sm={12} md={12} lg={10}>
-          {tabStatus.desc && (
-            <React.Fragment>
-              <AvatarUploadForm
+        {tabStatus.desc && (
+          <Grid item xs={12} sm={12} md={12} lg={10}>
+            <AvatarUploadForm
+              disable={!canUpdate}
+              resources={avatarS3URL}
+              docId={resources['_id']}
+              acceptedFiles={['image/png']}
+              onChange={(value) => handleFormChange('avatarUpload', value)}
+            />
+
+            <DescriptionForm
+              disable={!canUpdate}
+              resources={descData}
+              onChange={(value) => handleFormChange('description', value)}
+            />
+          </Grid>
+        )}
+
+        {tabStatus.topology && (
+          <Grid item xs={12} sm={12} md={12} lg={10}>
+            <DefaultCard style={classes.detailCard}>
+              <StateForm
                 disable={!canUpdate}
-                resources={avatarS3URL}
-                docId={resources['_id']}
-                acceptedFiles={['image/png']}
-                onChange={(value) => handleFormChange('avatarUpload', value)}
+                document={resources}
+                resources={stateResources}
+                customDefaultValue={resources.data?.state}
+                onChange={(value) => handleFormChange('state', value)}
+                size="small"
               />
-
-              <DescriptionForm
+              <StationForm
                 disable={!canUpdate}
-                resources={descData}
-                onChange={(value) => handleFormChange('description', value)}
+                document={resources}
+                resources={stationResources}
+                customDefaultValue={resources.data?.station}
+                onChange={(value) => handleFormChange('station', value)}
+                size="small"
               />
-            </React.Fragment>
-          )}
-        </Grid>
-
-        {canUpdate
-          ? tabStatus.topology &&
-            (stateResources.length &&
-            stationResources.length &&
-            districtResources.length ? (
-              <Grid item xs={12} sm={12} md={12} lg={10}>
-                <DefaultCard style={classes.detailCard}>
-                  <StateForm
-                    disable={!canUpdate}
-                    document={resources}
-                    resources={stateResources}
-                    customDefaultValue={topologyData?.state}
-                    onChange={(value) => handleFormChange('state', value)}
-                    size="small"
-                  />
-                </DefaultCard>
-                <DefaultCard style={classes.detailCard}>
-                  <StationForm
-                    disable={!canUpdate}
-                    document={resources}
-                    resources={stationResources}
-                    customDefaultValue={topologyData?.station}
-                    onChange={(value) => handleFormChange('station', value)}
-                    size="small"
-                  />
-                </DefaultCard>
-                <DefaultCard style={classes.detailCard}>
-                  <DistrictForm
-                    disable={!canUpdate}
-                    document={resources}
-                    resources={districtResources}
-                    customDefaultValue={topologyData?.district}
-                    onChange={(value) => handleFormChange('district', value)}
-                    size="small"
-                  />
-                </DefaultCard>
-              </Grid>
-            ) : (
-              <DescriptionCard>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  color="textSecondary"
-                  component="h2"
-                >
-                  Please add state, district and station first, from the state,
-                  district and station menu.
-                </Typography>
-              </DescriptionCard>
-            ))
-          : tabStatus.topology && (
-              <>
-                <DescriptionCard title={topologyData?.state}>
-                  <Grid container direction="row" alignItems="baseline">
-                    <Typography gutterBottom variant="subtitle1" component="h2">
-                      <b>State:</b>
-                    </Typography>
-
-                    {topologyData?.state ? (
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="h2"
-                        style={{ marginLeft: 5 }}
-                      >
-                        {
-                          stateResources.find(
-                            (item) => item.value === topologyData?.state
-                          )?.label
-                        }
-                      </Typography>
-                    ) : (
-                      <NoneSelected />
-                    )}
-                  </Grid>
-                  <Grid container direction="row" alignItems="baseline">
-                    <Typography gutterBottom variant="subtitle1" component="h2">
-                      <b>Station:</b>
-                    </Typography>
-
-                    {topologyData?.station ? (
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="h2"
-                        style={{ marginLeft: 5 }}
-                      >
-                        {
-                          stationResources.find(
-                            (item) => item.value === topologyData?.station
-                          )?.label
-                        }
-                      </Typography>
-                    ) : (
-                      <NoneSelected />
-                    )}
-                  </Grid>
-                  <Grid container direction="row" alignItems="baseline">
-                    <Typography gutterBottom variant="subtitle1" component="h2">
-                      <b> District:</b>
-                    </Typography>
-
-                    {topologyData?.district ? (
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="h2"
-                        style={{ marginLeft: 5 }}
-                      >
-                        {
-                          districtResources.find(
-                            (item) => item.value === topologyData?.district
-                          )?.label
-                        }
-                      </Typography>
-                    ) : (
-                      <NoneSelected />
-                    )}
-                  </Grid>
-                </DescriptionCard>
-                <Typography
-                  gutterBottom
-                  variant="subtitle1"
-                  component="h2"
-                  style={{ marginTop: 5 }}
-                >
-                  * press <Edit fontSize="small" /> to enter values
-                </Typography>
-              </>
+              <DistrictForm
+                disable={!canUpdate}
+                document={resources}
+                resources={districtResources}
+                customDefaultValue={resources.data?.district}
+                onChange={(value) => handleFormChange('district', value)}
+                size="small"
+              />
+            </DefaultCard>
+            {!canUpdate && (
+              <Typography
+                gutterBottom
+                variant="subtitle1"
+                component="h2"
+                style={{ marginTop: 5 }}
+              >
+                * press <Edit fontSize="small" /> to enter values
+              </Typography>
             )}
+          </Grid>
+        )}
 
         {tabStatus.people && (
           <Grid item xs={12} sm={12} md={12} lg={10}>

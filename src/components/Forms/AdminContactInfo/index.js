@@ -98,7 +98,6 @@ const AdminContactInfoForm = ({
     if (appContext) {
       if (appContext.userAdd) {
         if (appContext.userAdd.type === docType) {
-          console.log('added:', appContext.userAdd);
           setLoadedData([...loadedData, appContext.userAdd]);
 
           setAppContext({

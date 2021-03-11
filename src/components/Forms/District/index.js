@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
-import { Box } from '@material-ui/core';
+import React from 'react';
+import { Grid, Box, Typography } from '@material-ui/core';
 import { CustomSelectBox } from '@app/components/Custom';
+import { useStateContext } from '@app/providers/StateContext';
 import useStyles from './style';
+
+const NoneSelected = () => (
+  <Typography
+    gutterBottom
+    variant="subtitle1"
+    component="h2"
+    style={{ marginLeft: 5 }}
+  >
+    None Selected *
+  </Typography>
+);
 
 const DistrictForm = ({
   disable,
@@ -12,28 +24,56 @@ const DistrictForm = ({
   customDefaultValue
 }) => {
   const classes = useStyles();
-  const [loadedData, setLoadedData] = useState(() => customDefaultValue || '');
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [stateContext] = useStateContext();
 
   const handleChange = (selected) => {
     onChange(selected.value);
-    setLoadedData(selected.value);
   };
 
   return (
     <Box className={classes.root}>
-      <CustomSelectBox
-        id="istricts"
-        label="Districts"
-        variant="outlined"
-        value={customDefaultValue || loadedData}
-        defaultValue={customDefaultValue || loadedData}
-        resources={resources}
-        style={classes.selectBox}
-        disabled={disable}
-        onChange={handleChange}
-        size={size}
-      />
+      {disable ? (
+        <Grid container direction="row" alignItems="baseline">
+          <Typography gutterBottom variant="subtitle1">
+            <b>District: </b>
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="subtitle1"
+            component="h2"
+            style={{ marginLeft: 5 }}
+          >
+            {customDefaultValue &&
+              resources.find((item) => item.value === customDefaultValue)
+                ?.label}
+          </Typography>
+          {!customDefaultValue &&
+            (stateContext.district?.name ? (
+              <Typography
+                gutterBottom
+                variant="subtitle1"
+                component="h2"
+                style={{ marginLeft: 5 }}
+              >
+                {stateContext.district.name}
+              </Typography>
+            ) : (
+              <NoneSelected />
+            ))}
+        </Grid>
+      ) : (
+        <CustomSelectBox
+          id="istricts"
+          label="Districts"
+          variant="outlined"
+          value={customDefaultValue || stateContext.district?._id}
+          resources={resources}
+          style={classes.selectBox}
+          disabled={disable}
+          onChange={handleChange}
+          size={size}
+        />
+      )}
     </Box>
   );
 };

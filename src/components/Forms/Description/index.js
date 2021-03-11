@@ -65,9 +65,26 @@ const DescriptionForm = ({ disable, resources, onChange }) => {
             gutterBottom
             variant="subtitle1"
             component="h2"
-            style={{ marginTop: 5 }}
+            style={{
+              marginTop: 5,
+              marginLeft: 5,
+              display: 'inline-flex',
+              VerticalAlign: 'text-bottom',
+              BoxSizing: 'inherit',
+              alignItems: 'center'
+            }}
           >
-            Press <Edit fontSize="small" /> Button to edit above info
+            Press{'  '}
+            <Edit
+              fontSize="small"
+              fontSize="small"
+              style={{
+                marginRight: 3,
+                marginLeft: 3
+              }}
+            />
+            {'  '}
+            Button to edit above info
           </Typography>
         </React.Fragment>
       ) : (

@@ -41,9 +41,11 @@ const CustomDialog = ({
         <Button color="default" onClick={() => onChange('btnClick', false)}>
           {secondaryBtnName || 'Cancel'}
         </Button>
-        <Button color="primary" onClick={() => onChange('btnClick', true)}>
-          {mainBtnName}
-        </Button>
+        {mainBtnName && (
+          <Button color="primary" onClick={() => onChange('btnClick', true)}>
+            {mainBtnName}
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

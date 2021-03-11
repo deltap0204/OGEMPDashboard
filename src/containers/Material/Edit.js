@@ -20,23 +20,8 @@ import {
   ClassForm,
   MultiTagsForm
 } from '@app/components/Forms';
-import { DefaultCard, DescriptionCard } from '@app/components/Cards';
+import { DefaultCard } from '@app/components/Cards';
 import * as globalStyles from '@app/constants/globalStyles';
-
-const NoneSelected = () => {
-  return (
-    <>
-      <Typography
-        gutterBottom
-        variant="subtitle1"
-        component="h2"
-        style={{ marginLeft: 5 }}
-      >
-        None Selected *
-      </Typography>
-    </>
-  );
-};
 
 const MaterialEdit = ({
   forceSaveDocId,
@@ -527,201 +512,62 @@ const MaterialEdit = ({
           )}
         </Grid>
 
-        {canUpdate
-          ? tabStatus.topology &&
-            (stateResources.length &&
-            stationResources.length &&
-            districtResources.length &&
-            schoolResources.length &&
-            classResources.length ? (
-              <Grid item xs={12} sm={12} md={12} lg={10}>
-                <DefaultCard style={classes.detailCard}>
-                  <StateForm
-                    disable={!canUpdate}
-                    document={resources}
-                    resources={stateResources}
-                    customDefaultValue={topologyData?.state}
-                    onChange={(value) => handleFormChange('state', value)}
-                    size="small"
-                  />
-                </DefaultCard>
-                <DefaultCard style={classes.detailCard}>
-                  <StationForm
-                    disable={!canUpdate}
-                    document={resources}
-                    resources={stationResources}
-                    customDefaultValue={topologyData?.station}
-                    onChange={(value) => handleFormChange('station', value)}
-                    size="small"
-                  />
-                </DefaultCard>
-                <DefaultCard style={classes.detailCard}>
-                  <DistrictForm
-                    disable={!canUpdate}
-                    document={resources}
-                    resources={districtResources}
-                    customDefaultValue={topologyData?.district}
-                    onChange={(value) => handleFormChange('district', value)}
-                    size="small"
-                  />
-                </DefaultCard>
-                <DefaultCard style={classes.detailCard}>
-                  <SchoolForm
-                    disable={!canUpdate}
-                    document={resources}
-                    resources={schoolResources}
-                    customDefaultValue={topologyData?.school}
-                    onChange={(value) => handleFormChange('school', value)}
-                    size="small"
-                  />
-                  <DefaultCard style={classes.detailCard}>
-                    <ClassForm
-                      disable={!canUpdate}
-                      document={resources}
-                      resources={classResources}
-                      customDefaultValue={topologyData?.class}
-                      onChange={(value) => handleFormChange('class', value)}
-                      size="small"
-                    />
-                  </DefaultCard>
-                </DefaultCard>
-              </Grid>
-            ) : (
-              <DescriptionCard>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  color="textSecondary"
-                  component="h2"
-                >
-                  Please add state, district, school and station first , from
-                  the state, district, school and station menu.
-                </Typography>
-              </DescriptionCard>
-            ))
-          : tabStatus.topology && (
-              <>
-                <DescriptionCard title="class">
-                  <Grid container direction="row" alignItems="baseline">
-                    <Typography gutterBottom variant="subtitle1" component="h2">
-                      <b>State:</b>
-                    </Typography>
-
-                    {topologyData?.state ? (
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="h2"
-                        style={{ marginLeft: 5 }}
-                      >
-                        {
-                          stateResources.find(
-                            (item) => item.value === topologyData?.state
-                          )?.label
-                        }
-                      </Typography>
-                    ) : (
-                      <NoneSelected />
-                    )}
-                  </Grid>
-                  <Grid container direction="row" alignItems="baseline">
-                    <Typography gutterBottom variant="subtitle1" component="h2">
-                      <b>Station:</b>
-                    </Typography>
-                    {topologyData?.station ? (
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="h2"
-                        style={{ marginLeft: 5 }}
-                      >
-                        {
-                          stationResources.find(
-                            (item) => item.value === topologyData?.station
-                          )?.label
-                        }
-                      </Typography>
-                    ) : (
-                      <NoneSelected />
-                    )}
-                  </Grid>
-
-                  <Grid container direction="row" alignItems="baseline">
-                    <Typography gutterBottom variant="subtitle1" component="h2">
-                      <b>District:</b>
-                    </Typography>
-                    {topologyData?.district ? (
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="h2"
-                        style={{ marginLeft: 5 }}
-                      >
-                        {
-                          districtResources.find(
-                            (item) => item.value === topologyData?.district
-                          )?.label
-                        }
-                      </Typography>
-                    ) : (
-                      <NoneSelected />
-                    )}
-                  </Grid>
-
-                  <Grid container direction="row" alignItems="baseline">
-                    <Typography gutterBottom variant="subtitle1" component="h2">
-                      <b>School:</b>
-                    </Typography>
-                    {topologyData?.school ? (
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="h2"
-                        style={{ marginLeft: 5 }}
-                      >
-                        {
-                          schoolResources.find(
-                            (item) => item.value === topologyData?.school
-                          )?.label
-                        }
-                      </Typography>
-                    ) : (
-                      <NoneSelected />
-                    )}
-                  </Grid>
-
-                  <Grid container direction="row" alignItems="baseline">
-                    <Typography gutterBottom variant="subtitle1" component="h2">
-                      <b>Class:</b>
-                    </Typography>
-                    {topologyData?.class ? (
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="h2"
-                        style={{ marginLeft: 5 }}
-                      >
-                        {
-                          classResources.find(
-                            (item) => item.value === topologyData?.class
-                          )?.label
-                        }
-                      </Typography>
-                    ) : (
-                      <NoneSelected />
-                    )}
-                  </Grid>
-                </DescriptionCard>
-                <Typography
-                  gutterBottom
-                  variant="subtitle1"
-                  component="h2"
-                  style={{ marginTop: 5 }}
-                >
-                  * press <Edit fontSize="small" /> to enter values
-                </Typography>
-              </>
+        {tabStatus.topology && (
+          <Grid item xs={12} sm={12} md={12} lg={10}>
+            <DefaultCard style={classes.detailCard}>
+              <StateForm
+                disable={!canUpdate}
+                document={resources}
+                resources={stateResources}
+                customDefaultValue={resources.data?.state}
+                onChange={(value) => handleFormChange('state', value)}
+                size="small"
+              />
+              <StationForm
+                disable={!canUpdate}
+                document={resources}
+                resources={stationResources}
+                customDefaultValue={resources.data?.station}
+                onChange={(value) => handleFormChange('station', value)}
+                size="small"
+              />
+              <DistrictForm
+                disable={!canUpdate}
+                document={resources}
+                resources={districtResources}
+                customDefaultValue={resources.data?.district}
+                onChange={(value) => handleFormChange('district', value)}
+                size="small"
+              />
+              <SchoolForm
+                disable={!canUpdate}
+                document={resources}
+                resources={schoolResources}
+                customDefaultValue={resources.data?.school}
+                onChange={(value) => handleFormChange('school', value)}
+                size="small"
+              />
+              <ClassForm
+                disable={!canUpdate}
+                document={resources}
+                resources={classResources}
+                customDefaultValue={resources.data?.class}
+                onChange={(value) => handleFormChange('class', value)}
+                size="small"
+              />
+            </DefaultCard>
+            {!canUpdate && (
+              <Typography
+                gutterBottom
+                variant="subtitle1"
+                component="h2"
+                style={{ marginTop: 5 }}
+              >
+                * press <Edit fontSize="small" /> to enter values
+              </Typography>
             )}
+          </Grid>
+        )}
 
         {tabStatus.htmlEditor && (
           <Grid item xs={12} sm={12} md={12} lg={12}>

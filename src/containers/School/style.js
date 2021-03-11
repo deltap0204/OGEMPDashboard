@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.common.white
   },
   detailCard: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     backgroundColor: theme.palette.blueGrey['50']
   }
 }));

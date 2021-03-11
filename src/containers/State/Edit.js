@@ -43,10 +43,6 @@ const StateEdit = ({
     graphql.mutations.updateGroupingDesc
   );
 
-  const [updateGroupingData] = useMutation(
-    graphql.mutations.updateGroupingData
-  );
-
   const [updateGroupingAvatarUrl] = useMutation(
     graphql.mutations.updateGroupingAvatarUrl
   );
@@ -240,25 +236,23 @@ const StateEdit = ({
         justify="flex-start"
         alignItems="flex-start"
       >
-        <Grid item xs={12} sm={12} md={12} lg={10}>
-          {tabStatus.desc && (
-            <React.Fragment>
-              <AvatarUploadForm
-                disable={!canUpdate}
-                resources={avatarS3URL}
-                docId={resources['_id']}
-                acceptedFiles={['image/png']}
-                onChange={(value) => handleFormChange('avatarUpload', value)}
-              />
+        {tabStatus.desc && (
+          <Grid item xs={12} sm={12} md={12} lg={10}>
+            <AvatarUploadForm
+              disable={!canUpdate}
+              resources={avatarS3URL}
+              docId={resources['_id']}
+              acceptedFiles={['image/png']}
+              onChange={(value) => handleFormChange('avatarUpload', value)}
+            />
 
-              <DescriptionForm
-                disable={!canUpdate}
-                resources={descData}
-                onChange={(value) => handleFormChange('description', value)}
-              />
-            </React.Fragment>
-          )}
-        </Grid>
+            <DescriptionForm
+              disable={!canUpdate}
+              resources={descData}
+              onChange={(value) => handleFormChange('description', value)}
+            />
+          </Grid>
+        )}
       </Grid>
       <CustomDialog
         open={openDelete}
