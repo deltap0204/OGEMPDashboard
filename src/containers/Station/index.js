@@ -69,7 +69,8 @@ const StationContainer = ({ history, match }) => {
     error: stateError,
     data: stateData
   } = useQuery(graphql.queries.grouping, {
-    variables: stateVariables
+    variables: stateVariables,
+    fetchPolicy: 'network-only'
   });
 
   useEffect(() => {
