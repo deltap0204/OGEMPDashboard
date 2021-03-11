@@ -159,7 +159,7 @@ const AttachmentForm = ({ disable, docId, resources, onChange }) => {
   const handlePreviewDialogChange = (type, value) => {
     if (type === 'btnClick') {
       if (value) {
-        onChange('update', fileInfo);
+        if (!disable) onChange('update', fileInfo);
         setSelected();
         setFileInfo({
           name: '',
@@ -281,9 +281,7 @@ const AttachmentForm = ({ disable, docId, resources, onChange }) => {
                     [classes.listItemSelected]: selected === index
                   })}
                   onClick={() => handleElClick('singleClick', el, index)}
-                  onDoubleClick={() =>
-                    disable || handleElClick('doubleClick', el, index)
-                  }
+                  onDoubleClick={() => handleElClick('doubleClick', el, index)}
                 >
                   <ListItemText className={classes.listItemText}>
                     <Typography variant="subtitle1">
@@ -297,7 +295,7 @@ const AttachmentForm = ({ disable, docId, resources, onChange }) => {
         )}
       </main>
       <CustomDialog
-        mainBtnName="Update"
+        mainBtnName={disable ? null : 'Update'}
         open={openPreview}
         title="Preview"
         onChange={handlePreviewDialogChange}
@@ -309,6 +307,7 @@ const AttachmentForm = ({ disable, docId, resources, onChange }) => {
           type="text"
           resources={fileInfo.name}
           style={classes.inputArea}
+          disabled={disable}
           onChange={(value) =>
             handleInputChange('previewDialog', 'name', value)
           }

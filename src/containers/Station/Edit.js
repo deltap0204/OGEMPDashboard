@@ -381,30 +381,71 @@ const StationEdit = ({
             </React.Fragment>
           )}
         </Grid>
-        {tabStatus.topology && (
-          <Grid item xs={12} sm={12} md={12} lg={10}>
-            <DefaultCard style={classes.detailCard}>
-              <StateForm
-                disable={!canUpdate}
-                document={resources}
-                resources={stateResources}
-                customDefaultValue={resources.data?.state}
-                onChange={(value) => handleFormChange('state', value)}
-                size="small"
-              />
-            </DefaultCard>
-            {!canUpdate && (
-              <Typography
-                gutterBottom
-                variant="subtitle1"
-                component="h2"
-                style={{ marginTop: 5 }}
-              >
-                * press <Edit fontSize="small" /> to enter values
-              </Typography>
+
+        {canUpdate
+          ? tabStatus.topology &&
+            (stateResources?.length ? (
+              <Grid item xs={12} sm={12} md={12} lg={10}>
+                <DefaultCard style={classes.detailCard}>
+                  <StateForm
+                    disable={!canUpdate}
+                    document={resources}
+                    resources={stateResources}
+                    customDefaultValue={topologyData?.state}
+                    onChange={(value) => handleFormChange('state', value)}
+                    size="small"
+                  />
+                </DefaultCard>
+              </Grid>
+            ) : (
+              <DescriptionCard>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  color="textSecondary"
+                  component="h2"
+                >
+                  Please add a state from the state menu first.
+                </Typography>
+              </DescriptionCard>
+            ))
+          : tabStatus.topology && (
+              <>
+                <DescriptionCard title={topologyData?.state}>
+                  <Grid container direction="row" alignItems="baseline">
+                    <Typography gutterBottom variant="subtitle1">
+                      <b>State:</b>
+                    </Typography>
+                    {topologyData?.state ? (
+                      <>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="h2"
+                          style={{ marginLeft: 5 }}
+                        >
+                          {
+                            stateResources.find(
+                              (item) => item.value === topologyData?.state
+                            )?.label
+                          }
+                        </Typography>
+                      </>
+                    ) : (
+                      <NoneSelected />
+                    )}
+                  </Grid>
+                </DescriptionCard>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="h2"
+                  style={{ marginTop: 5 }}
+                >
+                  * press <Edit fontSize="small" /> to enter values
+                </Typography>
+              </>
             )}
-          </Grid>
-        )}
 
         {tabStatus.people && (
           <Grid item xs={12} sm={12} md={12} lg={10}>

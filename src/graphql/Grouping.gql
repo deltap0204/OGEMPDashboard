@@ -128,6 +128,7 @@ mutation CreateGrouping(
     type: $type
     state: $state
     subType: $subType
+    docState: { authorId: "6048ce4fa01e5473e0db142b" }
   ) {
     ...Grouping_grouping
   }
@@ -147,7 +148,7 @@ mutation UpdateGroupingData(
   updateGrouping(
     _id: $id
     collectionName: $collectionName
-    docState: { version: $version }
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
     data: $data
     parent: $parent
   ) {
@@ -164,7 +165,7 @@ mutation updateGroupingRename(
   updateGrouping(
     _id: $id
     collectionName: $collectionName
-    docState: { version: $version }
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
     name: $name
   ) {
     ...Grouping_grouping
@@ -181,7 +182,7 @@ mutation UpdateGroupingTopology(
   updateGrouping(
     _id: $id
     collectionName: $collectionName
-    docState: { version: $version }
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
     topology: $topology
     parent: $parent
   ) {
@@ -200,7 +201,7 @@ mutation UpdateGroupingType(
     _id: $id
     collectionName: $collectionName
     type: $type
-    docState: { version: $version }
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
     parent: $parent
   ) {
     ...Grouping_grouping
@@ -216,7 +217,7 @@ mutation UpdateGroupingState(
   updateGrouping(
     _id: $id
     collectionName: $collectionName
-    docState: { version: $version }
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
     state: $state
   ) {
     ...Grouping_grouping
@@ -234,7 +235,7 @@ mutation UpdateGroupingDesc(
   updateGrouping(
     _id: $id
     collectionName: $collectionName
-    docState: { version: $version }
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
     desc: { title: $title, short: $short, long: $long }
   ) {
     ...Grouping_grouping
@@ -250,7 +251,7 @@ mutation UpdateGroupingAssetURLs(
   updateGrouping(
     _id: $id
     collectionName: $collectionName
-    docState: { version: $version }
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
     assetURLs: { internal: $data }
   ) {
     ...Grouping_grouping
@@ -266,7 +267,7 @@ mutation UpdateGroupingAvatarUrl(
   updateGrouping(
     _id: $id
     collectionName: $collectionName
-    docState: { version: $version }
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
     avatarS3URL: { url: $url }
   ) {
     ...Grouping_grouping
