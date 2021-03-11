@@ -1,0 +1,154 @@
+fragment Link_link on Link {
+  name
+  type
+}
+
+fragment DocState_docState on DocState {
+  version
+  state
+  authorId
+}
+
+fragment Schedule_schedule on Schedule {
+  bActive
+  bFilter
+  startAt
+  endAt
+  recurrenceType
+  repeatsEvery
+  repeatsType
+  repeatsOn
+  endType
+  endOn
+  endAfter
+  state
+  archiveOn
+  deleteOn
+  packageOn
+}
+
+fragment Attachment_attachment on Attachment {
+  name
+  type
+}
+
+fragment Join_join on Join {
+  name
+  type
+}
+
+fragment User_user on User {
+  collectionName
+  _extId
+  name
+  state
+  customerId
+  clientId
+  partitionId
+  attachments {
+    ...Attachment_attachment
+  }
+  joins {
+    ...Join_join
+  }
+  contact
+  docState {
+    ...DocState_docState
+  }
+  avatarS3URL
+  assetURLs
+  location
+  topology
+  createdAt
+  updatedAt
+  version
+  assignee
+  schemaType
+  schemaVersion
+  parent
+  path
+  type
+  subType
+  tags
+  categories
+  rank
+  links {
+    ...Link_link
+  }
+  schedule {
+    ...Schedule_schedule
+  }
+  data
+  tracker
+}
+
+query User($collectionName: String!, $name: String) {
+  user(collectionName: $collectionName, name: $name) {
+    ...User_user
+  }
+}
+
+mutation CreateUser(
+  $collectionName: String!
+  $name: String!
+  $phone: String!
+  $parent: ID
+  $state: String
+  $type: String
+) {
+  createUser(
+    collectionName: $collectionName
+    name: $name
+    contact: { phone: $phone }
+    parent: $parent
+    state: $state
+    type: $type
+  ) {
+    ...User_user
+  }
+}
+
+mutation UpdateUser(
+  $name: String!
+  $collectionName: String!
+  $version: Int
+  $data: JSONObject
+  $parent: ID
+  $state: String
+  $url: String
+) {
+  updateUser(
+    name: $name
+    collectionName: $collectionName
+    docState: { version: $version }
+    data: $data
+    parent: $parent
+    state: $state
+    avatarS3URL: { url: $url }
+  ) {
+    ...User_user
+  }
+}
+
+mutation DeleteUser($collectionName: String!, $name: String!) {
+  deleteUser(collectionName: $collectionName, name: $name)
+}
+
+subscription UserAdd {
+  userAdd {
+    ...User_user
+  }
+}
+
+subscription UserUpdate {
+  userUpdate {
+    ...User_user
+  }
+}
+
+subscription UserDelete {
+  userDelete {
+    name
+    collectionName
+  }
+}

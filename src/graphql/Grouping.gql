@@ -1,0 +1,310 @@
+fragment Desc_desc on Desc {
+  title
+  short
+  long
+}
+
+fragment Link_link on Link {
+  _id
+  name
+  type
+}
+
+fragment DocState_docState on DocState {
+  version
+  state
+  authorId
+  locked
+}
+
+fragment Schedule_schedule on Schedule {
+  bActive
+  bFilter
+  startAt
+  endAt
+  recurrenceType
+  repeatsEvery
+  repeatsType
+  repeatsOn
+  endType
+  endOn
+  endAfter
+  state
+  archiveOn
+  deleteOn
+  packageOn
+}
+
+fragment Attachment_attachment on Attachment {
+  _id
+  name
+  type
+}
+
+fragment Join_join on Join {
+  _id
+  name
+  type
+}
+
+fragment Grouping_grouping on Grouping {
+  _id
+  _extId
+  collectionName
+  name
+  state
+  customerId
+  clientId
+  partitionId
+  attachments {
+    ...Attachment_attachment
+  }
+  joins {
+    ...Join_join
+  }
+  desc {
+    ...Desc_desc
+  }
+  docState {
+    ...DocState_docState
+  }
+  avatarS3URL
+  assetURLs
+  location
+  topology
+  createdAt
+  updatedAt
+  version
+  assigneeList
+  schemaType
+  schemaVersion
+  parent
+  path
+  type
+  subType
+  tags
+  categories
+  rank
+  links {
+    ...Link_link
+  }
+  schedule {
+    ...Schedule_schedule
+  }
+  data
+  tracker
+}
+
+query Grouping(
+  $id: ID
+  $collectionName: String!
+  $name: String
+  $parent: ID
+  $type: String
+) {
+  grouping(
+    _id: $id
+    collectionName: $collectionName
+    name: $name
+    parent: $parent
+    type: $type
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation CreateGrouping(
+  $collectionName: String!
+  $name: String
+  $parent: ID
+  $type: String
+  $state: String
+  $subType: String
+) {
+  createGrouping(
+    collectionName: $collectionName
+    name: $name
+    parent: $parent
+    type: $type
+    state: $state
+    subType: $subType
+    docState: { authorId: "6048ce4fa01e5473e0db142b" }
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation DeleteDocument($collectionName: String!, $id: ID!) {
+  deleteDocument(collectionName: $collectionName, _id: $id)
+}
+
+mutation UpdateGroupingData(
+  $id: ID!
+  $collectionName: String!
+  $version: Int
+  $data: JSONObject
+  $parent: ID
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
+    data: $data
+    parent: $parent
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation updateGroupingRename(
+  $id: ID!
+  $collectionName: String!
+  $version: Int
+  $name: String
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
+    name: $name
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation UpdateGroupingTopology(
+  $id: ID!
+  $collectionName: String!
+  $version: Int
+  $topology: JSONObject
+  $parent: ID
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
+    topology: $topology
+    parent: $parent
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation UpdateGroupingType(
+  $id: ID!
+  $collectionName: String!
+  $version: Int
+  $type: String!
+  $parent: ID
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    type: $type
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
+    parent: $parent
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation UpdateGroupingState(
+  $id: ID!
+  $collectionName: String!
+  $version: Int
+  $state: String
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
+    state: $state
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation UpdateGroupingDesc(
+  $id: ID!
+  $collectionName: String!
+  $version: Int
+  $title: String
+  $short: String
+  $long: String
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
+    desc: { title: $title, short: $short, long: $long }
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation UpdateGroupingAssetURLs(
+  $id: ID!
+  $version: Int
+  $collectionName: String!
+  $data: [JSONObject]
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
+    assetURLs: { internal: $data }
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation UpdateGroupingAvatarUrl(
+  $id: ID!
+  $version: Int
+  $collectionName: String!
+  $url: String
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    docState: { version: $version, authorId: "6048ce4fa01e5473e0db142b" }
+    avatarS3URL: { url: $url }
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+mutation UpdateGroupingDocState(
+  $id: ID!
+  $collectionName: String!
+  $version: Int
+  $state: String
+  $authorId: String
+) {
+  updateGrouping(
+    _id: $id
+    collectionName: $collectionName
+    docState: { version: $version, state: $state, authorId: $authorId }
+  ) {
+    ...Grouping_grouping
+  }
+}
+
+subscription GroupingAdd {
+  groupingAdd {
+    ...Grouping_grouping
+  }
+}
+
+subscription DocumentDelete {
+  documentDelete {
+    _id
+    collectionName
+  }
+}
+
+subscription GroupingUpdate {
+  groupingUpdate {
+    ...Grouping_grouping
+  }
+}

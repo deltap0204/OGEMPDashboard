@@ -1,0 +1,21 @@
+image: node:10.15.0
+options:
+  size: 2x
+pipelines:
+  branches:
+    dev:
+      - step:
+          script:
+            - NODE_OPTIONS=--max_old_space_size=4096
+            - yarn --ignore-engines install
+            - CI=false yarn build
+            - apt-get update && apt-get install -y awscli
+            - aws s3 --region "us-east-2" rm s3://dev-dashboard.emp-sig.com
+            - aws s3 --region "us-east-2" sync ./build s3://dev-dashboard.emp-sig.com
+            - aws configure set preview.cloudfront true
+            - aws cloudfront create-invalidation --distribution-id E2QC9UGGE0VVXO --paths /*
+
+            - aws s3 --region "us-east-2" rm s3://prod-dashboard.emp-sig.com
+            - aws s3 --region "us-east-2" sync ./build s3://prod-dashboard.emp-sig.com
+            - aws configure set preview.cloudfront true
+            - aws cloudfront create-invalidation --distribution-id EC5I8INA132WC --paths /*
