@@ -64,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     color: theme.palette.primary.contrastText,
     paddingLeft: theme.spacing(10)
+  },
+  selectednested: {
+    color: theme.palette.blueGrey['300'],
+    paddingLeft: theme.spacing(10)
   }
 }));
 

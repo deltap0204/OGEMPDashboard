@@ -31,6 +31,10 @@ const getNotificationGroup = (str) => {
       return notiEmail;
     case 'gallery':
       return notiGallery;
+    case 'oer':
+      return notiGallery;
+    case 'pbs':
+      return notiGallery;
     case 'message':
       return notiMessage;
     case 'people':

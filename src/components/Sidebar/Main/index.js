@@ -44,6 +44,7 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 const Menu = ({ el, selected, handleSelected, openMenu }) => {
   const classes = useStyles();
   const theme = useTheme();
+
   return el.submenu ? (
     <React.Fragment>
       <ListItem
@@ -69,7 +70,13 @@ const Menu = ({ el, selected, handleSelected, openMenu }) => {
         <List component="div" disablePadding>
           {el.submenu.map((resource, i) => (
             <Link to={resource.url} style={{ textDecoration: 'none' }}>
-              <MenuItem key="1" className={classes.nested}>
+              <MenuItem
+                key="1"
+                className={clsx(classes.nested, {
+                  [classes.selectednested]: resource.url !== selected,
+                  [classes.selectednested]: resource.url === selected
+                })}
+              >
                 {/* <Icon type="home" /> */}
                 <span>{resource.text}</span>
               </MenuItem>
@@ -124,7 +131,8 @@ const MainSidebar = ({ open, onChange, location }) => {
 
   useEffect(() => {
     if (location) {
-      const tmpUrl = `/${location.pathname.split('/')[1]}`;
+      // const tmpUrl = `/${location.pathname.split('/')[1]}`;
+      const tmpUrl = `${location.pathname}`;
       setSelected(tmpUrl);
     }
   }, [location]);

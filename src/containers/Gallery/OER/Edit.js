@@ -1,79 +1,60 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useSnackbar } from 'notistack';
-import AppContext from '@app/AppContext';
 import {
   DescriptionForm,
-  ContactForm,
+  AttachmentForm,
   AvatarUploadForm,
   MultiTagsForm,
-  AttachmentForm
+  ContactForm
 } from '@app/components/Forms';
-import TextEditor from '@app/components/TextEditor';
-import { Edit } from '@material-ui/icons';
-import { DefaultCard, DescriptionCard } from '@app/components/Cards';
+import AppContext from '@app/AppContext';
 import { EditPanel } from '@app/components/Panels';
 import { CustomDialog, CustomCheckBox } from '@app/components/Custom';
+import TextEditor from '@app/components/TextEditor';
 import { getNotificationOpt } from '@app/constants/Notifications';
 import graphql from '@app/graphql';
 import * as globalStyles from '@app/constants/globalStyles';
-import station from '@app/constants/Notifications/station';
-
-const NoneSelected = () => {
-  return (
-    <>
-      <Typography
-        gutterBottom
-        variant="subtitle1"
-        component="h2"
-        style={{ marginLeft: 5 }}
-      >
-        None Selected *
-      </Typography>
-    </>
-  );
-};
 
 const OEREdit = ({
   forceSaveDocId,
+  setWhenState,
   forceSave,
   variables,
+  changeDoc,
   resources,
-  stateResources,
-  stationResources,
   onChange
 }) => {
   const classes = globalStyles.globaluseStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [title, setTitle] = useState('');
   const [context] = useContext(AppContext);
-  const [canUpdate, setCanUpdate] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
   const [canEdit, setCanEdit] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [canUpdate, setCanUpdate] = useState(false);
   const [checkbox, setCheckbox] = useState(false);
   const [isTabReset, setIsTabReset] = useState(false);
   const [avatarS3URL, setAvatarS3URL] = useState();
-  const [descData, setDescData] = useState({});
-  const [topologyData, setTopologyData] = useState({});
-  const [detailData, setDetailData] = useState({});
   const [tabStatus, setTabStatus] = useState({});
-  const [currentTab, setCurrentTab] = useState(0);
+  const [descData, setDescData] = useState({});
   const [panelSize, setPanelSize] = useState({
     width: 0,
     height: 0
   });
+  const [detailData, setDetailData] = useState({});
+  const [currentTab, setCurrentTab] = useState(0);
 
-  const [updateGroupingData] = useMutation(
-    graphql.mutations.updateGroupingData
+  const [updateGroupingDocState] = useMutation(
+    graphql.mutations.updateGroupingDocState
   );
 
   const [updateGroupingDesc] = useMutation(
     graphql.mutations.updateGroupingDesc
   );
 
-  const [updateGroupingTopology] = useMutation(
-    graphql.mutations.updateGroupingTopology
+  const [updateGroupingData] = useMutation(
+    graphql.mutations.updateGroupingData
   );
 
   const [updateGroupingAvatarUrl] = useMutation(
@@ -81,10 +62,6 @@ const OEREdit = ({
   );
 
   const [deleteDocument] = useMutation(graphql.mutations.deleteDocument);
-
-  const [updateGroupingDocState] = useMutation(
-    graphql.mutations.updateGroupingDocState
-  );
 
   const [updateGroupingAssetURLs] = useMutation(
     graphql.mutations.updateGroupingAssetURLs
@@ -99,17 +76,10 @@ const OEREdit = ({
 
   useEffect(() => {
     if (resources) {
-      setCanUpdate(false);
       setCheckbox(false);
       setTitle(resources.name);
       // setIsTabReset(true);
-      setAvatarS3URL(resources.avatarS3URL?.url || '');
-      // setTabStatus({
-      //   desc: true,
-      //   topology: false,
-      //   people: false,
-      //   right: false
-      // });
+      setAvatarS3URL(resources.avatarS3URL?.url || null);
       handleTabStatus(currentTab);
 
       setDescData(
@@ -120,16 +90,10 @@ const OEREdit = ({
         }
       );
 
-      setTopologyData({
-        ...topologyData,
-        state: resources.topology?.state || '',
-        station: resources.topology?.station || ''
-      });
-
       setDetailData({
         ...detailData,
         state: resources.data?.state || '',
-        station: resources.data?.station || ''
+        body: resources.data?.body || null
       });
 
       setCanEdit(!resources.docState.state);
@@ -142,6 +106,25 @@ const OEREdit = ({
       handleEditPanelChange('save');
     }
   }, [forceSave]);
+
+  const handleFormChange = (type, value) => {
+    if (type === 'description') setDescData(value);
+    if (type === 'avatarUpload') {
+      if (value === 'remove') {
+        setAvatarS3URL();
+      } else {
+        setAvatarS3URL(value);
+      }
+    }
+    if (type === 'textEditor') {
+      setDetailData({
+        ...detailData,
+        body: value
+      });
+    }
+    setCanUpdate(true);
+    onChange('update', true);
+  };
 
   const handleShowPanel = async (value) => {
     setIsTabReset(false);
@@ -178,153 +161,6 @@ const OEREdit = ({
         categories: false,
         asset: true
       });
-    }
-  };
-
-  const handleFormChange = (type, value) => {
-    if (type === 'description') setDescData(value);
-    if (type === 'avatarUpload') {
-      if (value === 'remove') {
-        setAvatarS3URL();
-      } else {
-        setAvatarS3URL(value);
-      }
-    }
-    if (type === 'station' || type === 'state') {
-      setTopologyData({
-        ...topologyData,
-        [type]: value
-      });
-    }
-
-    setCanUpdate(true);
-    onChange('update', true);
-  };
-
-  const handleEditPanelChange = async (type) => {
-    try {
-      if (type === 'delete') setOpenDelete(true);
-      if (type === 'edit') {
-        await updateGroupingDocState({
-          variables: {
-            id: resources['_id'],
-            collectionName: 'OER',
-            version: resources.docState.version,
-            state: 'locked'
-          }
-        });
-      }
-
-      if (type === 'save') {
-        let descVraibleData = {
-          id: resources['_id'],
-          collectionName: 'Topologies',
-          version: resources.docState.version,
-          title: descData ? descData.title : '',
-          short: descData ? descData.short : '',
-          long: descData ? descData.long : ''
-        };
-
-        let detailVariableData = {
-          id: resources['_id'],
-          collectionName: 'Topologies',
-          version: resources.docState.version + 1,
-          data: detailData
-        };
-
-        let topologyVariableData = {
-          id: resources['_id'],
-          collectionName: 'Topologies',
-          version: resources.docState.version + 2,
-          topology: topologyData
-        };
-
-        let avatarVariableData = {
-          id: resources['_id'],
-          collectionName: 'Topologies',
-          version: resources.docState.version + 3,
-          type: 'state',
-          url: avatarS3URL
-        };
-
-        if (forceSave) {
-          descVraibleData = {
-            ...descVraibleData,
-            id: forceSaveDocId
-          };
-
-          detailVariableData = {
-            ...detailVariableData,
-            id: forceSaveDocId
-          };
-
-          topologyVariableData = {
-            ...topologyVariableData,
-            id: forceSaveDocId
-          };
-          avatarVariableData = {
-            ...avatarVariableData,
-            id: forceSaveDocId
-          };
-        }
-
-        await updateGroupingDesc({
-          variables: descVraibleData
-        });
-
-        await updateGroupingData({
-          variables: detailVariableData
-        });
-
-        await updateGroupingTopology({
-          variables: topologyVariableData
-        });
-
-        await updateGroupingAvatarUrl({
-          variables: avatarVariableData
-        });
-
-        const notiOps = getNotificationOpt('district', 'success', 'update');
-        enqueueSnackbar(notiOps.message, notiOps.options);
-        setCanUpdate(false);
-        onChange('update', false);
-        if (forceSave) onChange('forceSave', false);
-      }
-    } catch (error) {
-      console.log(error.message);
-      const notiOps = getNotificationOpt('district', 'error', 'update');
-      enqueueSnackbar(notiOps.message, notiOps.options);
-    }
-  };
-
-  const handleDeleteDialogChange = async (type, value) => {
-    try {
-      if (type === 'btnClick') {
-        if (!checkbox && value) {
-          const notiOps = getNotificationOpt('district', 'warning', 'delete');
-          enqueueSnackbar(notiOps.message, notiOps.options);
-          return;
-        }
-
-        if (checkbox && value) {
-          await deleteDocument({
-            variables: {
-              id: resources['_id'],
-              collectionName: 'Topologies'
-            }
-          });
-          const notiOps = getNotificationOpt('district', 'success', 'delete');
-          enqueueSnackbar(notiOps.message, notiOps.options);
-          onChange('delete');
-        }
-
-        setCheckbox(false);
-        setOpenDelete(false);
-      }
-    } catch (error) {
-      console.log(error.message);
-      const notiOps = getNotificationOpt('district', 'error', 'delete');
-      enqueueSnackbar(notiOps.message, notiOps.options);
     }
   };
 
@@ -370,6 +206,119 @@ const OEREdit = ({
       });
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const handleEditPanelChange = async (type) => {
+    try {
+      if (type === 'delete') setOpenDelete(true);
+      if (type === 'edit') {
+        setWhenState(true);
+        await updateGroupingDocState({
+          variables: {
+            id: resources['_id'],
+            collectionName: 'OER',
+            version: resources.docState.version,
+            state: 'locked',
+            authorId: null
+          }
+        });
+      }
+
+      if (type === 'save') {
+        setWhenState(false);
+        let descVariableData = {
+          id: resources['_id'],
+          collectionName: 'OER',
+          version: resources.docState.version,
+          title: descData ? descData.title : '',
+          short: descData ? descData.short : '',
+          long: descData ? descData.long : ''
+        };
+        let avatarVariableData = {
+          id: resources['_id'],
+          collectionName: 'OER',
+          version: resources.docState.version + 1,
+          type: 'state',
+          url: avatarS3URL
+        };
+
+        let detailVariableData = {
+          id: resources['_id'],
+          collectionName: 'OER',
+          version: resources.docState.version + 2,
+          data: detailData
+        };
+
+        if (forceSave) {
+          descVariableData = {
+            ...descVariableData,
+            id: forceSaveDocId
+          };
+
+          avatarVariableData = {
+            ...avatarVariableData,
+            id: forceSaveDocId
+          };
+
+          detailVariableData = {
+            ...detailVariableData,
+            id: forceSaveDocId
+          };
+        }
+
+        await updateGroupingDesc({
+          variables: descVariableData
+        });
+
+        await updateGroupingAvatarUrl({
+          variables: avatarVariableData
+        });
+
+        await updateGroupingData({
+          variables: detailVariableData
+        });
+
+        const notiOps = getNotificationOpt('oer', 'success', 'update');
+        enqueueSnackbar(notiOps.message, notiOps.options);
+        setCanUpdate(false);
+        onChange('update', false);
+        if (forceSave) onChange('forceSave', false);
+      }
+    } catch (error) {
+      console.log(error.message);
+      const notiOps = getNotificationOpt('oer', 'error', 'update');
+      enqueueSnackbar(notiOps.message, notiOps.options);
+    }
+  };
+
+  const handleDeleteDialogChange = async (type, value) => {
+    try {
+      if (type === 'btnClick') {
+        if (!checkbox && value) {
+          const notiOps = getNotificationOpt('oer', 'warning', 'delete');
+          enqueueSnackbar(notiOps.message, notiOps.options);
+          return;
+        }
+
+        if (checkbox && value) {
+          await deleteDocument({
+            variables: {
+              id: resources['_id'],
+              collectionName: 'OER'
+            }
+          });
+          const notiOps = getNotificationOpt('oer', 'success', 'delete');
+          enqueueSnackbar(notiOps.message, notiOps.options);
+          onChange('delete');
+        }
+        setCheckbox(false);
+        setOpenDelete(false);
+      }
+    } catch (error) {
+      console.log(error.message);
+      const notiOps = getNotificationOpt('oer', 'error', 'delete');
+      enqueueSnackbar(notiOps.message, notiOps.options);
     }
   };
 
@@ -428,7 +377,7 @@ const OEREdit = ({
             <TextEditor
               disable={!canUpdate}
               docId={resources['_id']}
-              resources={[]}
+              resources={resources}
               onChange={(value) => handleFormChange('textEditor', value)}
             />
           </Grid>
@@ -440,12 +389,7 @@ const OEREdit = ({
           </Grid>
         )}
 
-        {tabStatus.people && (
-          <Grid item xs={12} sm={12} md={12} lg={10}>
-            <ContactForm />
-          </Grid>
-        )}
-        {tabStatus.asset && (
+        {/* {tabStatus.asset && (
           <Grid item xs={12} sm={12} md={12} lg={10}>
             <AttachmentForm
               disable={!canUpdate}
@@ -454,17 +398,17 @@ const OEREdit = ({
               onChange={handleAttFormChange}
             />
           </Grid>
-        )}
+        )} */}
       </Grid>
       <CustomDialog
         open={openDelete}
-        title="Do you want to delete this school district?"
+        title="Do you want to delete this gallery?"
         mainBtnName="Remove"
         onChange={handleDeleteDialogChange}
       >
         <Typography variant="subtitle1">
-          This action will take the removing all info related to current school
-          district.
+          This action will take the removing all info related to current
+          gallery.
         </Typography>
         <CustomCheckBox
           color="primary"

@@ -139,7 +139,7 @@ const PBSContainer = ({ history, match }) => {
       const { grouping } = data;
       setLoadedData(grouping);
 
-      if (!stateContext.district && grouping.length > 0) {
+      if (!stateContext.pbs && grouping.length > 0) {
         setShowEdit(true);
         setSelectedDocId(grouping[0]['_id']);
         setEditPanelData(grouping[0]);
@@ -304,6 +304,7 @@ const PBSContainer = ({ history, match }) => {
           stateResources={stateLoadedData}
           stationResources={stationLoadedData}
           onChange={handleEditChange}
+          setWhenState={setWhenState}
         />
       )}
     </Box>

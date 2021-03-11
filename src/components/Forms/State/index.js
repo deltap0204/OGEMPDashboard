@@ -1,10 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { Box } from '@material-ui/core';
+import { Grid, Box, Typography } from '@material-ui/core';
 import { CustomSelectBox } from '@app/components/Custom';
 import graphql from '@app/graphql';
+import { useStateContext } from '@app/providers/StateContext';
 import useStyles from './style';
+
+const NoneSelected = () => (
+  <Typography
+    gutterBottom
+    variant="subtitle1"
+    component="h2"
+    style={{ marginLeft: 5 }}
+  >
+    Null
+  </Typography>
+);
 
 const StateForm = ({
   disable,
@@ -17,6 +29,7 @@ const StateForm = ({
   const classes = useStyles();
   const [parentId, setParentId] = useState();
   const [loadedData, setLoadedData] = useState('');
+  const [stateContext, setStateContext] = useStateContext();
 
   useEffect(() => {
     if (document) {
@@ -59,18 +72,54 @@ const StateForm = ({
 
   return (
     <Box className={classes.root}>
-      <CustomSelectBox
-        id="united-states"
-        label="State"
-        variant="outlined"
-        value={customDefaultValue || loadedData}
-        defaultValue={customDefaultValue || loadedData}
-        resources={resources}
-        style={classes.selectBox}
-        disabled={disable}
-        onChange={handleChange}
-        size={size}
-      />
+      {disable ? (
+        <Grid
+          container
+          direction="row"
+          alignItems="baseline"
+          style={{ padding: 10 }}
+        >
+          <Typography gutterBottom variant="subtitle1">
+            <b>State: </b>
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="subtitle1"
+            component="h2"
+            style={{ marginLeft: 5 }}
+          >
+            {customDefaultValue &&
+              resources.find((item) => item.value === customDefaultValue)
+                ?.label}
+          </Typography>
+          {!customDefaultValue &&
+            (stateContext.state?.name ? (
+              <Typography
+                gutterBottom
+                variant="subtitle1"
+                component="h2"
+                style={{ marginLeft: 5 }}
+              >
+                {stateContext.state.name}
+              </Typography>
+            ) : (
+              <NoneSelected />
+            ))}
+        </Grid>
+      ) : (
+        <CustomSelectBox
+          id="united-states"
+          label="State"
+          variant="outlined"
+          value={customDefaultValue || loadedData}
+          defaultValue={customDefaultValue || loadedData}
+          resources={resources}
+          style={classes.selectBox}
+          disabled={disable}
+          onChange={handleChange}
+          size={size}
+        />
+      )}
     </Box>
   );
 };

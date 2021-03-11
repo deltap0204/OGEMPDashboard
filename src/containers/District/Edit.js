@@ -491,9 +491,23 @@ const DistrictEdit = ({
                   gutterBottom
                   variant="subtitle1"
                   component="h2"
-                  style={{ marginTop: 5 }}
+                  style={{ 
+                    marginTop: 5,
+                    marginLeft: 5,
+                    display: 'inline-flex',
+                    VerticalAlign: 'text-bottom',
+                    BoxSizing: 'inherit',
+                    alignItems: 'center'
+                   }}
                 >
-                  Press <Edit fontSize="small" /> to enter values
+                  Press{'  '}
+                   <Edit 
+                    fontSize="small"
+                    style={{
+                      marginRight: 2,
+                      marginLeft: 2
+                    }} 
+                   /> to enter values
                 </Typography>
               </>
             )}

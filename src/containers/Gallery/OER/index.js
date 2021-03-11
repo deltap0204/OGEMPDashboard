@@ -139,7 +139,7 @@ const OERContainer = ({ history, match }) => {
       const { grouping } = data;
       setLoadedData(grouping);
 
-      if (!stateContext.district && grouping.length > 0) {
+      if (!stateContext.oer && grouping.length > 0) {
         setShowEdit(true);
         setSelectedDocId(grouping[0]['_id']);
         setEditPanelData(grouping[0]);
@@ -298,6 +298,7 @@ const OERContainer = ({ history, match }) => {
       {showEdit && (
         <OEREdit
           forceSaveDocId={forceSaveDocId}
+          setWhenState={setWhenState}
           forceSave={isForceSave}
           variables={variables}
           resources={editPanelData}

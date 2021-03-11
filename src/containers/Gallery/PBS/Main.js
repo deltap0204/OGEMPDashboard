@@ -73,7 +73,7 @@ const PBSMain = ({ selectedDocId, variables, resources, onChange }) => {
   const handleElClicked = (value) => {
     onChange('elSingleClick', value);
   };
-  console.log('resources::', resources);
+
   return (
     <MainPanel
       title="PBS"
