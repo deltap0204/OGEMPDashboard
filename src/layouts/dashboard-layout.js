@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Navbar from '@app/components/Navbar';
 import { MainSidebar, SecondarySidebar } from '@app/components/Sidebar';
 // import Footer from '@app/components/Footer';
+import { useSnackbar } from 'notistack';
 import { TempGlobalStatus } from '@app/components/Temp';
 import AppContext from '@app/AppContext';
 import { useWindowSize } from '@app/utils/hooks/window';
@@ -32,6 +33,7 @@ const DashboardLayout = (props) => {
   const [openRight, setOpenRight] = useState(false);
   const [type, setType] = useState('');
   const [context, setContext] = useContext(AppContext);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (windowSize.width) {
@@ -110,10 +112,21 @@ const DashboardLayout = (props) => {
   }, [resSubUserAdd.loading, resSubUserAdd.error, resSubUserAdd.data]);
 
   useEffect(() => {
-    if (!window.localStorage.getItem('profile')) {
+    const storageProfile = window.localStorage.getItem('profile');
+    if (!storageProfile) {
+      enqueueSnackbar('Invalid Cache!', { variant: 'error' });
       window.localStorage.clear();
+    } else {
+      try {
+        const profile = JSON.parse(storageProfile);
+        console.log(profile);
+      } catch (error) {
+        enqueueSnackbar('Invalid Cache!', { variant: 'error' });
+        window.localStorage.clear();
+      }
     }
   }, []);
+
   const handleSidebar = (value) => {
     setOpenLeft(value);
   };

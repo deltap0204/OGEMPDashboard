@@ -7,7 +7,6 @@ import versionData from '@app/version.json';
 const GlobalStatus = ({ width }) => {
   const classes = useStyles();
   const [stateContext] = useStateContext();
-  const profile = JSON.parse(window.localStorage.getItem('profile'));
 
   return (
     <Box className={classes.root}>
