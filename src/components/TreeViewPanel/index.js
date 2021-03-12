@@ -82,7 +82,14 @@ function StyledTreeItem(props) {
   return (
     <TreeItem
       label={
-        <div className={classes.labelRoot}>
+        <div
+          onClick={(event) => {
+            // if you want after click do expand/collapse comment this two line
+            // event.stopPropagation();
+            event.preventDefault();
+          }}
+          className={classes.labelRoot}
+        >
           <LabelIcon color="inherit" className={classes.labelIcon} />
           <Typography variant="body2" className={classes.labelText}>
             {labelText}
@@ -150,6 +157,7 @@ const CustomTreeView = ({
   };
 
   const handleSelect = (event, nodeIds) => {
+    console.log('toggle');
     event.preventDefault();
     clicks.push(new Date().getTime());
     window.clearTimeout(timeout);

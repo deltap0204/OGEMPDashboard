@@ -104,13 +104,6 @@ const MaterialEdit = ({
       setAvatarS3URL(resources.avatarS3URL?.url || '');
       // setIsTabReset(true);
       setAvatarS3URL(resources.avatarS3URL?.url || '');
-      // setTabStatus({
-      //   desc: true,
-      //   topology: false,
-      //   htmlEditor: false,
-      //   attachment: false,
-      //   right: false
-      // });
       handleTabStatus(currentTab);
 
       setDescData(
@@ -312,12 +305,13 @@ const MaterialEdit = ({
   const handleEditPanelChange = async (type) => {
     try {
       if (type === 'edit') {
+        console.log('version:', resources.docState.version);
         setWhenState(true);
         await updateGroupingDocState({
           variables: {
             id: resources['_id'],
             collectionName: 'Classes',
-            version: resources.docState.version,
+            version: resources.docState.version + 1,
             state: 'locked'
           }
         });
@@ -329,7 +323,7 @@ const MaterialEdit = ({
         let varaibleData = {
           id: resources['_id'],
           collectionName: 'Classes',
-          version: resources.docState.version,
+          version: resources.docState.version + 1,
           title: descData ? descData.title : '',
           short: descData ? descData.short : '',
           long: descData ? descData.long : ''
@@ -338,22 +332,22 @@ const MaterialEdit = ({
         let topologyVariableData = {
           id: resources['_id'],
           collectionName: 'Classes',
-          version: resources.docState.version + 1,
+          version: resources.docState.version + 2,
           topology: topologyData
         };
 
         let avatarVariableData = {
           id: resources['_id'],
-          collectionName: 'Topologies',
-          version: resources.docState.version + 2,
-          type: 'state',
+          collectionName: 'Classes',
+          version: resources.docState.version + 3,
+          type: 'material',
           url: avatarS3URL
         };
 
         let detailVariableData = {
           id: resources['_id'],
           collectionName: 'Classes',
-          version: resources.docState.version + 3,
+          version: resources.docState.version + 4,
           data: detailData
         };
 
@@ -467,14 +461,14 @@ const MaterialEdit = ({
       canDelete
       canEdit={canEdit}
       canUpdate={canUpdate}
-      tabSetting={{
-        desc: true,
-        topology: true,
-        htmlEditor: true,
-        attachment: true,
-        categories: true,
-        right: true
-      }}
+      // tabSetting={{
+      //   desc: true,
+      //   topology: true,
+      //   htmlEditor: true,
+      //   attachment: true,
+      //   categories: true,
+      //   right: true
+      // }}
       isTabReset={isTabReset}
       onChange={handleEditPanelChange}
       onTabChnage={handleShowPanel}
@@ -493,103 +487,45 @@ const MaterialEdit = ({
         justify="flex-start"
         alignItems="flex-start"
       >
-        <Grid item xs={12} sm={12} md={12} lg={10}>
-          {tabStatus.desc && (
-            <React.Fragment>
-              <AvatarUploadForm
-                disable={!canUpdate}
-                resources={avatarS3URL}
-                docId={resources['_id']}
-                acceptedFiles={['image/png']}
-                onChange={(value) => handleFormChange('avatarUpload', value)}
-              />
+        <Grid item xs={12} sm={12} md={12} lg={8}>
+          <DefaultCard className={classes.editPanelCard}>
+            <AvatarUploadForm
+              disable={!canUpdate}
+              resources={avatarS3URL}
+              docId={resources['_id']}
+              acceptedFiles={['image/png']}
+              onChange={(value) => handleFormChange('avatarUpload', value)}
+            />
 
-              <DescriptionForm
-                disable={!canUpdate}
-                resources={descData}
-                onChange={(value) => handleFormChange('description', value)}
-              />
-            </React.Fragment>
-          )}
-        </Grid>
+            <DescriptionForm
+              disable={!canUpdate}
+              resources={descData}
+              onChange={(value) => handleFormChange('description', value)}
+            />
 
-        {tabStatus.topology && (
-          <Grid item xs={12} sm={12} md={12} lg={10}>
-            <DefaultCard style={classes.detailCard}>
-              <StateForm
-                disable={!canUpdate}
-                document={resources}
-                resources={stateResources}
-                customDefaultValue={resources.data?.state}
-                onChange={(value) => handleFormChange('state', value)}
-                size="small"
-              />
-              <StationForm
-                disable={!canUpdate}
-                document={resources}
-                resources={stationResources}
-                customDefaultValue={resources.data?.station}
-                onChange={(value) => handleFormChange('station', value)}
-                size="small"
-              />
-              <DistrictForm
-                disable={!canUpdate}
-                document={resources}
-                resources={districtResources}
-                customDefaultValue={resources.data?.district}
-                onChange={(value) => handleFormChange('district', value)}
-                size="small"
-              />
-              <SchoolForm
-                disable={!canUpdate}
-                document={resources}
-                resources={schoolResources}
-                customDefaultValue={resources.data?.school}
-                onChange={(value) => handleFormChange('school', value)}
-                size="small"
-              />
-              <ClassForm
-                disable={!canUpdate}
-                document={resources}
-                resources={classResources}
-                customDefaultValue={resources.data?.class}
-                onChange={(value) => handleFormChange('class', value)}
-                size="small"
-              />
-            </DefaultCard>
-            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
-          </Grid>
-        )}
-
-        {tabStatus.htmlEditor && (
-          <Grid item xs={12} sm={12} md={12} lg={12}>
             <TextEditor
               disable={!canUpdate}
               docId={resources['_id']}
               resources={resources}
               onChange={(value) => handleFormChange('textEditor', value)}
             />
-            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
-          </Grid>
-        )}
-        {tabStatus.attachment && (
-          <Grid item xs={12} sm={12} md={12} lg={10}>
+          </DefaultCard>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={12} lg={4}>
+          <DefaultCard className={classes.editPanelCard}>
             <AttachmentForm
               disable={!canUpdate}
               docId={resources['_id']}
               resources={resources.assetURLs}
               onChange={handleAttFormChange}
             />
-            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
-          </Grid>
-        )}
-        {tabStatus.categories && (
-          <Grid item xs={12} sm={12} md={12} lg={10}>
+
             <MultiTagsForm />
-            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
-          </Grid>
-        )}
+          </DefaultCard>
+        </Grid>
       </Grid>
+
       <CustomDialog
         open={openDelete}
         title="Do you want to delete this material?"

@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapperArea: {
     border: `1px solid ${theme.palette.blueGrey['50']}`,
-    minHeight: 'calc(100vh - 200px);'
+    minHeight: 'calc(100vh - 535px)'
   },
   toolbarArea: {
     border: 'none',
