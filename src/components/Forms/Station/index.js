@@ -12,7 +12,7 @@ const NoneSelected = () => (
     component="h2"
     style={{ marginLeft: 5 }}
   >
-    None Selected *
+    Null
   </Typography>
 );
 

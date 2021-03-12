@@ -11,6 +11,7 @@ import {
 } from '@app/components/Forms';
 import AppContext from '@app/AppContext';
 import { EditPanel } from '@app/components/Panels';
+import { EditHelperText, SaveHelperText } from '@app/components/Text';
 import { CustomDialog, CustomCheckBox } from '@app/components/Custom';
 import TextEditor from '@app/components/TextEditor';
 import { getNotificationOpt } from '@app/constants/Notifications';
@@ -380,12 +381,14 @@ const PBSEdit = ({
               resources={resources}
               onChange={(value) => handleFormChange('textEditor', value)}
             />
+            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
 
         {tabStatus.categories && (
           <Grid item xs={12} sm={12} md={12} lg={10}>
             <MultiTagsForm />
+            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
 

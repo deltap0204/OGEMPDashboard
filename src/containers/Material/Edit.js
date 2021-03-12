@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 import AppContext from '@app/AppContext';
 import { EditPanel } from '@app/components/Panels';
 import { CustomDialog, CustomCheckBox } from '@app/components/Custom';
+import { EditHelperText, SaveHelperText } from '@app/components/Text';
 import TextEditor from '@app/components/TextEditor';
 import { Edit } from '@material-ui/icons';
 import { getNotificationOpt } from '@app/constants/Notifications';
@@ -556,16 +557,7 @@ const MaterialEdit = ({
                 size="small"
               />
             </DefaultCard>
-            {!canUpdate && (
-              <Typography
-                gutterBottom
-                variant="subtitle1"
-                component="h2"
-                style={{ marginTop: 5 }}
-              >
-                * press <Edit fontSize="small" /> to enter values
-              </Typography>
-            )}
+            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
 
@@ -577,6 +569,7 @@ const MaterialEdit = ({
               resources={resources}
               onChange={(value) => handleFormChange('textEditor', value)}
             />
+            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
         {tabStatus.attachment && (
@@ -587,11 +580,13 @@ const MaterialEdit = ({
               resources={resources.assetURLs}
               onChange={handleAttFormChange}
             />
+            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
         {tabStatus.categories && (
           <Grid item xs={12} sm={12} md={12} lg={10}>
             <MultiTagsForm />
+            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
       </Grid>

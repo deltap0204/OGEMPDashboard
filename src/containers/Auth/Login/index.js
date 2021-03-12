@@ -50,7 +50,7 @@ const LoginContainer = () => {
     const user = users.find((el) => el.name === userEmail);
     if (!user) {
       window.localStorage.setItem('profile', JSON.stringify({ user: null }));
-      enqueueSnackbar('This user name is not exist!', { variant: 'error' });
+      // enqueueSnackbar('This user name is not exist!', { variant: 'error' });
       return;
     }
     window.localStorage.setItem('profile', JSON.stringify(user));

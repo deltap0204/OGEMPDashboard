@@ -4,7 +4,13 @@ import { Grid, Typography } from '@material-ui/core';
 import { CustomInput } from '@app/components/Custom';
 import { Edit, Save } from '@material-ui/icons';
 import { DefaultCard, DescriptionCard } from '@app/components/Cards';
-import { TitleText, ShortText, LongText } from '@app/components/Text';
+import {
+  TitleText,
+  ShortText,
+  LongText,
+  EditHelperText,
+  SaveHelperText
+} from '@app/components/Text';
 import * as globalStyles from '@app/constants/globalStyles';
 
 const DescriptionForm = ({ disable, resources, onChange }) => {
@@ -61,31 +67,7 @@ const DescriptionForm = ({ disable, resources, onChange }) => {
             <ShortText heading="Short Text:" value={loadedData.short} />
             <LongText heading="Long Text:" value={loadedData.long} />
           </DescriptionCard>
-          <Typography
-            gutterBottom
-            variant="subtitle1"
-            component="h2"
-            style={{
-              marginTop: 5,
-              marginLeft: 5,
-              display: 'inline-flex',
-              VerticalAlign: 'text-bottom',
-              BoxSizing: 'inherit',
-              alignItems: 'center'
-            }}
-          >
-            Press{'  '}
-            <Edit
-              fontSize="small"
-              fontSize="small"
-              style={{
-                marginRight: 3,
-                marginLeft: 3
-              }}
-            />
-            {'  '}
-            Button to edit above info
-          </Typography>
+          <EditHelperText />
         </React.Fragment>
       ) : (
         <Grid>
@@ -141,30 +123,7 @@ const DescriptionForm = ({ disable, resources, onChange }) => {
             />
           </DefaultCard>
 
-          <Typography
-            gutterBottom
-            variant="subtitle1"
-            component="h2"
-            style={{
-              marginTop: 5,
-              marginLeft: 5,
-              display: 'inline-flex',
-              VerticalAlign: 'text-bottom',
-              BoxSizing: 'inherit',
-              alignItems: 'center'
-            }}
-          >
-            Press{'  '}
-            <Save
-              fontSize="small"
-              style={{
-                marginRight: 2,
-                marginLeft: 2
-              }}
-            />
-            {'  '}
-            to save above info
-          </Typography>
+          <SaveHelperText />
         </Grid>
       )}
     </React.Fragment>

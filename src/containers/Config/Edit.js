@@ -6,6 +6,7 @@ import AppContext from '@app/AppContext';
 import JSONEditor from '@app/components/JSONEditor';
 import { EditPanel } from '@app/components/Panels';
 import ImageUploader from '@app/components/ImageUploader';
+import { EditHelperText, SaveHelperText } from '@app/components/Text';
 import { CustomDialog, CustomCheckBox } from '@app/components/Custom';
 import { getNotificationOpt } from '@app/constants/Notifications';
 import graphql from '@app/graphql';
@@ -206,6 +207,7 @@ const ConfigEdit = ({
             resources={resources.data}
             onChange={handleJSONEditorChange}
           />
+          {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
         </Grid>
       </Grid>
       <CustomDialog

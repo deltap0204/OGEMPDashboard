@@ -14,6 +14,7 @@ import { Edit } from '@material-ui/icons';
 import { getNotificationOpt } from '@app/constants/Notifications';
 import { useSnackbar } from 'notistack';
 import graphql from '@app/graphql';
+import { EditHelperText, SaveHelperText } from '@app/components/Text';
 import { CustomDialog, CustomCheckBox } from '@app/components/Custom';
 import { DefaultCard } from '@app/components/Cards';
 import * as globalStyles from '@app/constants/globalStyles';
@@ -351,7 +352,6 @@ const StationEdit = ({
               acceptedFiles={['image/png']}
               onChange={(value) => handleFormChange('avatarUpload', value)}
             />
-
             <DescriptionForm
               disable={!canUpdate}
               resources={descData}
@@ -371,16 +371,7 @@ const StationEdit = ({
                 size="small"
               />
             </DefaultCard>
-            {!canUpdate && (
-              <Typography
-                gutterBottom
-                variant="subtitle1"
-                component="h2"
-                style={{ marginTop: 5 }}
-              >
-                * press <Edit fontSize="small" /> to enter values
-              </Typography>
-            )}
+            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
 
@@ -391,6 +382,7 @@ const StationEdit = ({
               resources={resources}
               setCanUpdate={setCanUpdate}
             />
+            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
       </Grid>

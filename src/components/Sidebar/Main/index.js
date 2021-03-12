@@ -131,8 +131,8 @@ const MainSidebar = ({ open, onChange, location }) => {
 
   useEffect(() => {
     if (location) {
-      // const tmpUrl = `/${location.pathname.split('/')[1]}`;
-      const tmpUrl = `${location.pathname}`;
+      const tmpUrl = `/${location.pathname.split('/')[1]}`;
+      // const tmpUrl = `${location.pathname}`;
       setSelected(tmpUrl);
     }
   }, [location]);
