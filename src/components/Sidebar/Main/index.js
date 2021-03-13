@@ -126,8 +126,8 @@ const MainSidebar = ({ open, onChange, location }) => {
 
   const actionElements = [
     { icon: faInfoCircle, text: 'Tutorials', url: '/tutorials' },
-    { icon: faCog, text: 'Settings', url: '/settings' },
-    { icon: faSignOutAlt, text: 'Logout', url: '/' }
+    { icon: faCog, text: 'Settings', url: '/settings' }
+    // { icon: faSignOutAlt, text: 'Logout', url: '/' }
   ];
 
   useEffect(() => {
@@ -151,11 +151,6 @@ const MainSidebar = ({ open, onChange, location }) => {
         setOpenMenu((prevOpen) => !prevOpen);
       }
     }
-  };
-  const logout = async () => {
-    await Auth.signOut();
-    window.localStorage.clear();
-    history.push('/');
   };
 
   return (
@@ -217,7 +212,7 @@ const MainSidebar = ({ open, onChange, location }) => {
         ))}
       </List>
 
-      <Logout onClicklogout={() => logout()} />
+      <Logout />
     </Drawer>
   );
 };

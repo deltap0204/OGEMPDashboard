@@ -26,3 +26,4 @@ export { default as SchoolForm } from './School';
 export { default as UserForm } from './User';
 export { default as UserRole } from './UserRole';
 export { default as UserState } from './UserState';
+export { default as MassFileUploadForm } from './MassFileUpload';
