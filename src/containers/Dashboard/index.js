@@ -14,7 +14,6 @@ const DashboardContainer = () => {
         open={openCreate}
         title="Diagnostics"
         setOpenDialog={setOpenDialog}
-        children={'a'}
       ></DiagnosticsDialog>
     </Box>
   );

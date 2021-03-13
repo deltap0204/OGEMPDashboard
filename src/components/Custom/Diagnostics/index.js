@@ -11,6 +11,7 @@ import {
   DialogContent
 } from '@material-ui/core';
 import useStyles from './style';
+import { TempGlobalStatus } from '@app/components/Temp';
 const DiagnosticsDialog = ({ open, title, style, children, setOpenDialog }) => {
   const classes = useStyles();
 
@@ -28,7 +29,11 @@ const DiagnosticsDialog = ({ open, title, style, children, setOpenDialog }) => {
           <Typography variant="h6">{title}</Typography>
         </Box>
       </DialogTitle>
-      <DialogContent className={classes.content}>{children}</DialogContent>
+      <DialogContent className={classes.content}>
+        <TempGlobalStatus />
+
+        {children}
+      </DialogContent>
       <DialogActions>
         <Button
           className={classes.customizedButton}
