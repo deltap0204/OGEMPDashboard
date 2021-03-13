@@ -184,7 +184,7 @@ const LoginContainer = () => {
           <Grid item>Powered By &nbsp;</Grid>
           <Grid item>
             <Img
-              src={config.auth.loginUrl}
+              src={config.auth.bottomLogo}
               alt="Bottom Logo"
               className={classes.bottomlogo}
             ></Img>

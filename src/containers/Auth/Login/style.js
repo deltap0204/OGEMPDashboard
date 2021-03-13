@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1)
   },
   poweredby: {
-    margin: '15px -40px -40px 0',
+    margin: '0',
     textAlign: 'right',
     fontStyle: 'italic',
     display: 'flex',
@@ -64,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   bottomlogo: {
-    width: '180px',
-    height: '100px'
+    width: '200px',
+    height: '80px'
   },
   loginButton: {
     backgroundColor: theme.palette.blueGrey['500'],
