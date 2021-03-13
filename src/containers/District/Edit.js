@@ -420,9 +420,6 @@ const DistrictEdit = ({
           </Grid>
         )}
 
-<<<<<<< HEAD
-        {tabStatus.students && <MassFileUploadForm />}
-=======
         {tabStatus.students && (
           <React.Fragment>
             <MassFileUploadForm
@@ -445,7 +442,6 @@ const DistrictEdit = ({
             </Box>
           </React.Fragment>
         )}
->>>>>>> dev
       </Grid>
       <CustomDialog
         open={openDelete}

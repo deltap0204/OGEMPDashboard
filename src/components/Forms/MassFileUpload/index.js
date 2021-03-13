@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-
-const MassFileUploadForm = () => {
-  return <>Mass File Upload Form</>;
-=======
 import React, { useState, useCallback } from 'react';
 import clsx from 'clsx';
 import { Box, Typography } from '@material-ui/core';
@@ -83,7 +77,6 @@ const MassFileUploadForm = ({ docId, onChange }) => {
       </Box>
     </LoadingCard>
   );
->>>>>>> dev
 };
 
 export default MassFileUploadForm;
