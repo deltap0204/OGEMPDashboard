@@ -55,12 +55,12 @@ export const setMenuListByRole = (role) => {
             icon: faBookMedical,
             text: 'PBS',
             url: '/galleries/pbs'
-          },
-          {
-            icon: faBookMedical,
-            text: 'OER',
-            url: '/galleries/oer'
           }
+          // {
+          //   icon: faBookMedical,
+          //   text: 'OER',
+          //   url: '/galleries/oer'
+          // }
         ]
       },
       {

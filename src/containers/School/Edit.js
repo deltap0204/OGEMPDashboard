@@ -351,8 +351,8 @@ const SchoolEdit = ({
         topology: true,
         people: true,
         right: true,
-        teachers: true,
-        students: true
+        teachers: false,
+        students: false
       }}
       isTabReset={isTabReset}
       onChange={handleEditPanelChange}
