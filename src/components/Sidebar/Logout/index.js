@@ -51,8 +51,9 @@ const StyledMenuItem = withStyles((theme) => ({
   }
 }))(MenuItem);
 
-export const Logout = () => {
+export const Logout = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { onClicklogout } = props;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -100,7 +101,7 @@ export const Logout = () => {
           <ExitToAppIcon className={classes.logoutIcon}>
             <SendIcon fontSize="small" />
           </ExitToAppIcon>
-          <ListItemText primary="Log out" />
+          <ListItemText primary="Log out" onClick={() => onClicklogout()} />
         </StyledMenuItem>
       </StyledMenu>
     </div>
