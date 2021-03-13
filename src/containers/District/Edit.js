@@ -8,7 +8,8 @@ import {
   StationForm,
   StateForm,
   ContactForm,
-  AvatarUploadForm
+  AvatarUploadForm,
+  MassFileUploadForm
 } from '@app/components/Forms';
 import { Edit } from '@material-ui/icons';
 import { DefaultCard } from '@app/components/Cards';
@@ -136,6 +137,8 @@ const DistrictEdit = ({
         desc: true,
         topology: false,
         people: false,
+        teachers: false,
+        students: false,
         right: false
       });
     } else if (value === 1) {
@@ -143,6 +146,8 @@ const DistrictEdit = ({
         desc: false,
         topology: true,
         people: false,
+        teachers: false,
+        students: false,
         right: false
       });
     } else if (value === 2) {
@@ -150,6 +155,8 @@ const DistrictEdit = ({
         desc: false,
         topology: false,
         people: true,
+        teachers: false,
+        students: false,
         right: false
       });
     } else if (value === 3) {
@@ -157,6 +164,26 @@ const DistrictEdit = ({
         desc: false,
         topology: false,
         people: false,
+        teachers: true,
+        students: false,
+        right: false
+      });
+    } else if (value === 4) {
+      setTabStatus({
+        desc: false,
+        topology: false,
+        people: false,
+        teachers: false,
+        students: true,
+        right: false
+      });
+    } else if (value === 5) {
+      setTabStatus({
+        desc: false,
+        topology: false,
+        people: false,
+        teachers: false,
+        students: false,
         right: true
       });
     }
@@ -322,7 +349,9 @@ const DistrictEdit = ({
         desc: true,
         topology: true,
         people: true,
-        right: true
+        right: true,
+        students: true,
+        teachers: true
       }}
       isTabReset={isTabReset}
       onChange={handleEditPanelChange}
@@ -388,6 +417,8 @@ const DistrictEdit = ({
             {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
+
+        {tabStatus.students && <MassFileUploadForm />}
       </Grid>
       <CustomDialog
         open={openDelete}
