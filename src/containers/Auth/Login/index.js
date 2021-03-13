@@ -111,6 +111,11 @@ const LoginContainer = () => {
     }
   };
 
+  const handlePageChange = () => {
+    window.location.href =
+      'https://sig-emp.atlassian.net/servicedesk/customer/portals';
+  };
+
   return (
     <Box className={classes.root}>
       <DefaultCard>
@@ -165,6 +170,15 @@ const LoginContainer = () => {
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
           />
+          <Link
+            className={classes.linktextleft}
+            rel="noopener"
+            target="_blank"
+            onClick={handlePageChange}
+            target="_blank"
+          >
+            Trouble Logging in? Contact Support.
+          </Link>
         </Box>
         <Box className={classes.poweredby}>
           <Grid item>Powered By &nbsp;</Grid>

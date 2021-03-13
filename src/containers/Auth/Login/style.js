@@ -43,6 +43,12 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'right',
     textDecoration: 'none'
   },
+  linktextleft: {
+    margin: `${theme.spacing(3)}px 0`,
+    textAlign: 'left',
+    textDecoration: 'none',
+    color: '#37474f'
+  },
   mr20: {
     marginRight: 20
   },
