@@ -46,7 +46,6 @@ const MassFileUploadForm = ({ docId, onChange }) => {
       setLoading(false);
       enqueueSnackbar(error.message, { variant: 'error' });
     }
-    // Do something with the files
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
