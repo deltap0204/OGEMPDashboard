@@ -1,11 +1,62 @@
+fragment Desc_desc on Desc {
+  title
+  short
+  long
+}
+
+fragment Link_link on Link {
+  _id
+  name
+  type
+}
+
+fragment DocState_docState on DocState {
+  version
+  state
+  authorId
+  locked
+}
+
+fragment Schedule_schedule on Schedule {
+  bActive
+  bFilter
+  startAt
+  endAt
+  recurrenceType
+  repeatsEvery
+  repeatsType
+  repeatsOn
+  endType
+  endOn
+  endAfter
+  state
+  archiveOn
+  deleteOn
+  packageOn
+}
+
+fragment Attachment_attachment on Attachment {
+  _id
+  name
+  type
+}
+
+fragment Join_join on Join {
+  _id
+  name
+  type
+}
+
 fragment User_user on User {
   collectionName
+  _id
   _extId
   name
   state
   customerId
   clientId
   partitionId
+
   attachments {
     ...Attachment_attachment
   }
@@ -23,7 +74,7 @@ fragment User_user on User {
   createdAt
   updatedAt
   version
-  assignee
+  assigneeList
   schemaType
   schemaVersion
   parent
