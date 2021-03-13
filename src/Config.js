@@ -28,5 +28,8 @@ export default {
     endpoint: process.env.REACT_APP_SIGNED_URL_ENDPOINT,
     bucketName: process.env.REACT_APP_BUCKET_NAME
   },
-  assetUrl: process.env.REACT_APP_ASSET_URL
+  assetUrl: process.env.REACT_APP_ASSET_URL,
+  restful: {
+    studentAndTeacherUpload: process.env.REACT_APP_STUDENT_TEACHER_UPLOAD
+  }
 };

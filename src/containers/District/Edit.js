@@ -424,6 +424,7 @@ const DistrictEdit = ({
           <React.Fragment>
             <MassFileUploadForm
               docId={resources['_id']}
+              type="student"
               onChange={(value) => setTmpStudentURL(value)}
             />
             <Box width="100%" padding="20px">
@@ -435,6 +436,7 @@ const DistrictEdit = ({
           <React.Fragment>
             <MassFileUploadForm
               docId={resources['_id']}
+              type="teacher"
               onChange={(value) => setTmpTeacherURL(value)}
             />
             <Box width="100%" padding="20px">
