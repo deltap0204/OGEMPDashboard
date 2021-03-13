@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Box } from '@material-ui/core';
 import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
 import AppContext from '@app/AppContext';
@@ -8,7 +8,8 @@ import {
   StationForm,
   StateForm,
   ContactForm,
-  AvatarUploadForm
+  AvatarUploadForm,
+  MassFileUploadForm
 } from '@app/components/Forms';
 import { Edit } from '@material-ui/icons';
 import { DefaultCard } from '@app/components/Cards';
@@ -44,6 +45,8 @@ const DistrictEdit = ({
   const [detailData, setDetailData] = useState({});
   const [tabStatus, setTabStatus] = useState({});
   const [currentTab, setCurrentTab] = useState(0);
+  const [tmpStudentURL, setTmpStudentURL] = useState('');
+  const [tmpTeacherURL, setTmpTeacherURL] = useState('');
   const [panelSize, setPanelSize] = useState({
     width: 0,
     height: 0
@@ -136,6 +139,8 @@ const DistrictEdit = ({
         desc: true,
         topology: false,
         people: false,
+        teachers: false,
+        students: false,
         right: false
       });
     } else if (value === 1) {
@@ -143,6 +148,8 @@ const DistrictEdit = ({
         desc: false,
         topology: true,
         people: false,
+        teachers: false,
+        students: false,
         right: false
       });
     } else if (value === 2) {
@@ -150,6 +157,8 @@ const DistrictEdit = ({
         desc: false,
         topology: false,
         people: true,
+        teachers: false,
+        students: false,
         right: false
       });
     } else if (value === 3) {
@@ -157,6 +166,26 @@ const DistrictEdit = ({
         desc: false,
         topology: false,
         people: false,
+        teachers: true,
+        students: false,
+        right: false
+      });
+    } else if (value === 4) {
+      setTabStatus({
+        desc: false,
+        topology: false,
+        people: false,
+        teachers: false,
+        students: true,
+        right: false
+      });
+    } else if (value === 5) {
+      setTabStatus({
+        desc: false,
+        topology: false,
+        people: false,
+        teachers: false,
+        students: false,
         right: true
       });
     }
@@ -322,7 +351,9 @@ const DistrictEdit = ({
         desc: true,
         topology: true,
         people: true,
-        right: true
+        right: true,
+        students: true,
+        teachers: true
       }}
       isTabReset={isTabReset}
       onChange={handleEditPanelChange}
@@ -387,6 +418,29 @@ const DistrictEdit = ({
             <ContactForm />
             {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
+        )}
+
+        {tabStatus.students && (
+          <React.Fragment>
+            <MassFileUploadForm
+              docId={resources['_id']}
+              onChange={(value) => setTmpStudentURL(value)}
+            />
+            <Box width="100%" padding="20px">
+              {tmpStudentURL}
+            </Box>
+          </React.Fragment>
+        )}
+        {tabStatus.teachers && (
+          <React.Fragment>
+            <MassFileUploadForm
+              docId={resources['_id']}
+              onChange={(value) => setTmpTeacherURL(value)}
+            />
+            <Box width="100%" padding="20px">
+              {tmpTeacherURL}
+            </Box>
+          </React.Fragment>
         )}
       </Grid>
       <CustomDialog

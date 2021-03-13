@@ -60,7 +60,7 @@ const EditPanel = ({
               <Tab label="Topology" className={classes.tab} />
             )}
             {tabSetting.people && (
-              <Tab label="People" className={classes.tab} />
+              <Tab label="Users" className={classes.tab} />
             )}
             {tabSetting.htmlEditor && (
               <Tab label="HTML Editor" className={classes.tab} />

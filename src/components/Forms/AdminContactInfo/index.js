@@ -56,6 +56,7 @@ const AdminContactInfoForm = ({
   const { enqueueSnackbar } = useSnackbar();
   const [loadedData, setLoadedData] = useState([]);
   const [newElName, setNewElName] = useState('');
+  const [newPhoneNumber, setNewPhoneNumber] = useState();
   const [createDialogSetting, setCreateDialogSetting] = useState({});
   const [openCreate, setOpenCreate] = useState(false);
   const [clicked, setClicked] = useState();
@@ -187,13 +188,14 @@ const AdminContactInfoForm = ({
   const handleCreateDialogChange = async (type, value) => {
     try {
       if (type === 'input') setNewElName(value);
+      if (type === 'phone') setNewPhoneNumber(value);
       if (type === 'btnClick') {
         if (value) {
           await createUser({
             variables: {
               collectionName: 'Users',
               name: newElName,
-              phone: '+17709194472',
+              phone: '+1' + newPhoneNumber,
               type: docType,
               state: 'active',
               parent: resources['_id']
@@ -460,150 +462,6 @@ const AdminContactInfoForm = ({
                   </Grid>
                 </Grid>
               </Grid>
-
-              {/* <div style={{ display: 'flex' }}>
-                <IconButton
-                  onClick={() => handleIconClick(index)}
-                  style={{ padding: 0 }}
-                >
-                  {clicked && selectedItem == index ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
-                  )}
-                </IconButton>
-                <div className={classes.docName} style={{ width: '15%' }}>
-                  <Typography variant="subtitle2">{el.name}</Typography>
-                </div>
-                <div style={{ width: '15%', margin: 'auto' }}>
-                  <ImageUploader
-                    isshadow
-                  // resourceID={resources['_id']}
-                  // resourceName="Stations"
-                  // acceptedFiles={['image/png']}
-                  // updateAvatarS3URL={updateAvatarS3URL}
-                  // avatarS3URL={avatarS3URL}
-                  />
-                </div>
-                <Grid
-                  container
-                  spacing={2}
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="flex-start"
-                  style={{ padding: 8 }}
-                >
-                  <Grid item xs={12} md={12} lg={4}>
-                    <CustomInput
-                      label="First Name"
-                      variant="outlined"
-                      size="small"
-                      type="text"
-                      name="firstname"
-                      value={el.data?.first_name}
-                      style={classes.inputArea}
-                      onChange={(value) =>
-                        handleInputChange(index, 'first_name', value)
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={4}>
-                    <CustomNumberInput
-                      label="Phone Number"
-                      variant="outlined"
-                      size="small"
-                      name="phonenumber"
-                      value={el.data?.phone_number}
-                      style={classes.inputArea}
-                      onChange={(value) =>
-                        handleInputChange(index, 'phone_number', value)
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={4}>
-                    <CustomSelectBox
-                      label="Role"
-                      id="class-types"
-                      // value={type}
-                      variant="outlined"
-                      resources={RolesResource}
-                      style={classes.selectBox}
-                      defaultValue={el.data?.role}
-                      onChange={(selected) =>
-                        handleInputChange(index, 'role', selected.value)
-                      }
-                      size="small"
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={4}>
-                    <CustomInput
-                      label="Last Name"
-                      variant="outlined"
-                      size="small"
-                      type="text"
-                      name="lastname"
-                      value={el.data?.last_name}
-                      style={classes.inputArea}
-                      onChange={(value) =>
-                        handleInputChange(index, 'last_name', value)
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={4}>
-                    <CustomInput
-                      label="SMS"
-                      variant="outlined"
-                      size="small"
-                      type="text"
-                      name="sms"
-                      value={el.data?.sms}
-                      style={classes.inputArea}
-                      onChange={(value) =>
-                        handleInputChange(index, 'sms', value)
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={4}>
-                    <div className={classes.docName}>
-                      <Button
-                        name={`state${index}`}
-                        variant="contained"
-                        className={classes.listBtn}
-                        onClick={(e) => handleClickListItem(e, index)}
-                        style={{ backgroundColor: optionsColor[el.state] }}
-                      >
-                        {el.state}
-                      </Button>
-                      <Menu
-                        id="lock-menu"
-                        anchorEl={anchorEl && anchorEl[index]}
-                        keepMounted
-                        open={Boolean(anchorEl && anchorEl[index])}
-                        onClose={handleClose}
-                      >
-                        {options.map((option, optionIndex) => (
-                          <MenuItem
-                            key={option}
-                            selected={optionIndex === selectedIndex}
-                            onClick={() =>
-                              handleMenuItemClick(index, 'state', optionIndex)
-                            }
-                          >
-                            {option}
-                          </MenuItem>
-                        ))}
-                      </Menu>
-                    </div>
-                  </Grid>
-                </Grid>
-              </div>
-
-              <IconButton
-                className={classes.closeIcon}
-                onClick={() => handleContactChange('delete', el._id)}
-              >
-                <CloseIcon />
-              </IconButton> */}
             </DefaultCard>
 
             <Collapse in={clicked && selectedItem == index}>
@@ -654,17 +512,30 @@ const AdminContactInfoForm = ({
         title="Create a new Contact"
         onChange={handleCreateDialogChange}
       >
-        <CustomInput
-          type="text"
-          label="Enter Name"
-          value={newElName}
-          onChange={(value) => handleCreateDialogChange('input', value)}
-          error={createDialogSetting.error}
-          helperText={createDialogSetting.helperText}
-          variant="outlined"
-          size="small"
-          width="300px"
-        />
+        <Grid item xs={12} md={12} lg={12}>
+          <CustomInput
+            type="text"
+            label="Enter Name"
+            value={newElName}
+            onChange={(value) => handleCreateDialogChange('input', value)}
+            error={createDialogSetting.error}
+            // helperText={createDialogSetting.helperText}
+            variant="outlined"
+            size="small"
+            width="300px"
+          />
+        </Grid>
+        <Grid item xs={12} md={12} lg={12} style={{ marginTop: '10px' }}>
+          <CustomNumberInput
+            label="Phone Number"
+            variant="outlined"
+            size="small"
+            name="phone"
+            value={newPhoneNumber}
+            style={classes.inputArea}
+            onChange={(value) => handleCreateDialogChange('phone', value)}
+          />
+        </Grid>
       </CustomDialog>
     </LoadingCard>
   );

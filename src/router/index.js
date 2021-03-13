@@ -7,6 +7,7 @@ import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
 
 import NotFound from '@app/containers/NotFound';
+import NetworkError from '@app/containers/NetworkError';
 import { LoginContainer, ForgotPasswordContainer } from '@app/containers/Auth';
 import DashboardContainer from '@app/containers/Dashboard';
 import StateContainer from '@app/containers/State';
@@ -123,6 +124,11 @@ const AppRoutes = () => (
       path="/users/:type?/:userId?"
       component={UserContainer}
       layout={DashboardLayout}
+    />
+    <PublicRoute
+      path="/network-error"
+      component={NetworkError}
+      layout={BasicLayout}
     />
     <PublicRoute path="**" component={NotFound} layout={BasicLayout} />
   </Switch>

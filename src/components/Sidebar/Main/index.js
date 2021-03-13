@@ -37,6 +37,7 @@ import {
   faUsersCog
 } from '@fortawesome/free-solid-svg-icons';
 import { setMenuListByRole } from './Menu';
+import { Logout } from '../Logout/index';
 import useStyles from './style';
 import { Auth } from 'aws-amplify';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
@@ -151,6 +152,11 @@ const MainSidebar = ({ open, onChange, location }) => {
       }
     }
   };
+  const logout = async () => {
+    await Auth.signOut();
+    window.localStorage.clear();
+    history.push('/');
+  };
 
   return (
     <Drawer
@@ -210,6 +216,8 @@ const MainSidebar = ({ open, onChange, location }) => {
           />
         ))}
       </List>
+
+      <Logout onClicklogout={() => logout()} />
     </Drawer>
   );
 };

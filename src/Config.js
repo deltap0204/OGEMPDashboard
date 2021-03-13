@@ -4,10 +4,10 @@ export default {
     ws: process.env.REACT_APP_APOLLO_WS_SERVER
   },
   dev: {
-//    corsHandler:
-//      process.env.NODE_ENV !== 'production'
-//        ? process.env.REACT_APP_CORS_HANDLER
-//        : ''
+    //    corsHandler:
+    //      process.env.NODE_ENV !== 'production'
+    //        ? process.env.REACT_APP_CORS_HANDLER
+    //        : ''
     corsHandler: process.env.REACT_APP_CORS_HANDLER
   },
   aws: {
@@ -20,7 +20,9 @@ export default {
     oauth: {}
   },
   auth: {
-    loginUrl: process.env.REACT_APP_AUTH_COGNITO_URL
+    loginUrl: process.env.REACT_APP_AUTH_COGNITO_URL,
+    bottomLogo: process.env.REACT_APP_LOGIN_BOTTOM_LOGO,
+    profileImage: process.env.REACT_APP_PROFILE_IMAGE
   },
   signedUrl: {
     endpoint: process.env.REACT_APP_SIGNED_URL_ENDPOINT,

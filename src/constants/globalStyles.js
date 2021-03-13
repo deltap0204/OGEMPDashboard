@@ -85,6 +85,10 @@ export const globaluseStyles = makeStyles((theme) => ({
   media: {
     height: 72,
     backgroundSize: 'contain'
+  },
+  editPanelCard: {
+    minHeight: 'calc(100vh - 185px);',
+    backgroundColor: theme.palette.blueGrey['50']
   }
 }));
 

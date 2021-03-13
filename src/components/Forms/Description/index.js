@@ -63,9 +63,9 @@ const DescriptionForm = ({ disable, resources, onChange }) => {
       {disable ? (
         <React.Fragment>
           <DescriptionCard title={loadedData.title}>
-            <TitleText heading="Title:" value={loadedData.title} />
-            <ShortText heading="Short Text:" value={loadedData.short} />
-            <LongText heading="Long Text:" value={loadedData.long} />
+            <TitleText heading="" value={loadedData.title} />
+            <ShortText heading="" value={loadedData.short} />
+            <LongText heading="" value={loadedData.long} />
           </DescriptionCard>
           <EditHelperText />
         </React.Fragment>
