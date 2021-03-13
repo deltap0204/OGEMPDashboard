@@ -36,13 +36,13 @@ const DiagnosticsDialog = ({ open, title, style, children, setOpenDialog }) => {
       </DialogContent>
       <DialogActions>
         <Button
-          className={classes.customizedButton}
-          color="default"
+          variant="contained"
+          color="secondary"
           onClick={() => {
             setOpenDialog(false);
           }}
         >
-          <CloseIcon />
+          Close
         </Button>
       </DialogActions>
     </Dialog>
