@@ -31,7 +31,8 @@ const MaterialMain = ({
   selectedTreeItem,
   setSelectedTreeItem,
   createGrouping,
-  updateGroupingRename
+  updateGroupingRename,
+  classLoadedData
 }) => {
   const { parent } = variables;
   const classes = globalStyles.globaluseStyles();
@@ -67,7 +68,7 @@ const MaterialMain = ({
           if (openRename) {
             let varaibleData = {
               id: selectedTreeItem[0]?._id,
-              collectionName: 'Classes',
+              collectionName: 'Materials',
               version: selectedTreeItem[0]?.docState.version,
               name: newElName
             };
@@ -143,44 +144,9 @@ const MaterialMain = ({
           selected={selected}
           setExpanded={setExpanded}
           expanded={expanded}
+          classLoadedData={classLoadedData}
         />
       </div>
-      {/* <List className={classes.elementList}>
-        {resources &&
-          resources.map((el) => (
-            <ListItem
-              key={el['_id']}
-              onClick={() => handleElClicked('single', el)}
-              className={clsx(classes.listItems, {
-                [classes.listItem]: el['_id'] !== selectedDocId,
-                [classes.listItemSelected]: el['_id'] === selectedDocId
-              })}
-            >
-              <ListItemText className={classes.listItemText}>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <span
-                    className={clsx({
-                      [classes.listItemText]: el['_id'] !== selectedDocId,
-                      [classes.listSelectedItemText]:
-                        el['_id'] === selectedDocId
-                    })}
-                  >
-                    {el.name}
-                  </span>
-                  {el.state === 'published' && (
-                    <Box className={classes.state} component={Typography}>
-                      Published
-                    </Box>
-                  )}
-                </Box>
-              </ListItemText>
-            </ListItem>
-          ))}
-      </List> */}
       <CustomDialog
         mainBtnName="Create"
         open={openCreate}

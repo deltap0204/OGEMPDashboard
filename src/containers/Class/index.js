@@ -33,7 +33,7 @@ const ClassContainer = ({ history }) => {
 
   const variables = {
     id: null,
-    collectionName: 'Topologies',
+    collectionName: 'Materials',
     type: 'class',
     parent: null,
     nam: null
@@ -206,7 +206,7 @@ const ClassContainer = ({ history }) => {
     if (context) {
       if (context.groupingAdd) {
         const { collectionName, type } = context.groupingAdd;
-        if (collectionName === 'Topologies' && type === 'class') {
+        if (collectionName === 'Materials' && type === 'class') {
           setTopologyData({
             ...topologyData,
             state: stateContext.state?._id || '',
@@ -217,7 +217,7 @@ const ClassContainer = ({ history }) => {
 
           let topologyVariableData = {
             id: context.groupingAdd['_id'],
-            collectionName: 'Topologies',
+            collectionName: 'Materials',
             version: context.groupingAdd.docState.version + 2,
             topology: topologyData
           };
@@ -242,7 +242,7 @@ const ClassContainer = ({ history }) => {
       }
       if (context.documentDelete) {
         const { _id, collectionName } = context.documentDelete;
-        if (collectionName === 'Topologies') {
+        if (collectionName === 'Materials') {
           if (_id === editPanelData['_id']) setShowEdit(false);
           const tmp = loadedData.filter((el) => el['_id'] !== _id);
           setLoadedData(tmp);
@@ -256,7 +256,7 @@ const ClassContainer = ({ history }) => {
 
       if (context.groupingUpdate) {
         const { _id, collectionName, type } = context.groupingUpdate;
-        if (collectionName === 'Topologies' && type === 'class') {
+        if (collectionName === 'Materials' && type === 'class') {
           // const tmp = loadedData;
           // const idx = tmp.findIndex((el) => el['_id'] === _id);
           // if (idx > -1) {
@@ -337,7 +337,7 @@ const ClassContainer = ({ history }) => {
         await updateGroupingDocState({
           variables: {
             id: editPanelData['_id'],
-            collectionName: 'Topologies',
+            collectionName: 'Materials',
             version: editPanelData.docState.version,
             state: null,
             authorId: null

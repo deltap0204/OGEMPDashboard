@@ -261,7 +261,7 @@ const MaterialEdit = ({
     try {
       let assetUrlVariables = {
         id: resources['_id'],
-        collectionName: 'Classes',
+        collectionName: 'Materials',
         version: resources.docState.version,
         data: []
       };
@@ -310,7 +310,7 @@ const MaterialEdit = ({
         await updateGroupingDocState({
           variables: {
             id: resources['_id'],
-            collectionName: 'Classes',
+            collectionName: 'Materials',
             version: resources.docState.version + 1,
             state: 'locked'
           }
@@ -322,7 +322,7 @@ const MaterialEdit = ({
         setWhenState(false);
         let varaibleData = {
           id: resources['_id'],
-          collectionName: 'Classes',
+          collectionName: 'Materials',
           version: resources.docState.version + 1,
           title: descData ? descData.title : '',
           short: descData ? descData.short : '',
@@ -331,14 +331,14 @@ const MaterialEdit = ({
 
         let topologyVariableData = {
           id: resources['_id'],
-          collectionName: 'Classes',
+          collectionName: 'Materials',
           version: resources.docState.version + 2,
           topology: topologyData
         };
 
         let avatarVariableData = {
           id: resources['_id'],
-          collectionName: 'Classes',
+          collectionName: 'Materials',
           version: resources.docState.version + 3,
           type: 'material',
           url: avatarS3URL
@@ -346,7 +346,7 @@ const MaterialEdit = ({
 
         let detailVariableData = {
           id: resources['_id'],
-          collectionName: 'Classes',
+          collectionName: 'Materials',
           version: resources.docState.version + 4,
           data: detailData
         };
@@ -408,7 +408,7 @@ const MaterialEdit = ({
           variables: {
             id: resources['_id'],
             version: resources.docState.version,
-            collectionName: 'Classes',
+            collectionName: 'Materials',
             state: 'published'
           }
         });
@@ -435,7 +435,7 @@ const MaterialEdit = ({
           await deleteDocument({
             variables: {
               id: resources['_id'],
-              collectionName: 'Classes'
+              collectionName: 'Materials'
             }
           });
           const notiOps = getNotificationOpt('material', 'success', 'delete');

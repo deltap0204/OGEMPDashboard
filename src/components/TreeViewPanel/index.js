@@ -148,16 +148,17 @@ const CustomTreeView = ({
   setSelected,
   selected,
   setExpanded,
-  expanded
+  expanded,
+  classLoadedData
 }) => {
   const classes = useStyles();
 
   const handleToggle = (event, nodeIds) => {
+    console.log('expanded:', nodeIds);
     setExpanded(nodeIds);
   };
 
   const handleSelect = (event, nodeIds) => {
-    console.log('toggle');
     event.preventDefault();
     clicks.push(new Date().getTime());
     window.clearTimeout(timeout);
@@ -219,14 +220,20 @@ const CustomTreeView = ({
       onNodeToggle={handleToggle}
       onNodeSelect={handleSelect}
     >
-      <StyledTreeItem
-        key="null"
-        nodeId="root"
-        labelText="root"
-        labelIcon={FolderIcon}
-      >
-        {childrenTreeItems(resources, 'root', 1)}
-      </StyledTreeItem>
+      {classLoadedData &&
+        classLoadedData?.map((el, index) => (
+          <StyledTreeItem
+            key={el.value}
+            nodeId={el.value}
+            labelText={el.label}
+            labelIcon={FolderIcon}
+            state={el.state}
+            // onClick={() => onClick('single', el)}
+          >
+            {childrenTreeItems(resources, el.value, index + 2)}
+          </StyledTreeItem>
+        ))}
+      {/* {childrenTreeItems(resources, 'root', 1)} */}
     </TreeView>
   );
 };

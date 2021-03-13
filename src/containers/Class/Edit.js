@@ -212,7 +212,7 @@ const ClassEdit = ({
         await updateGroupingDocState({
           variables: {
             id: resources['_id'],
-            collectionName: 'Topologies',
+            collectionName: 'Materials',
             version: resources.docState.version,
             state: 'locked'
           }
@@ -224,7 +224,7 @@ const ClassEdit = ({
         const docId = resources['_id'];
         let descVraibleData = {
           id: docId,
-          collectionName: 'Topologies',
+          collectionName: 'Materials',
           version: resources.docState.version,
           title: descData ? descData.title : '',
           short: descData ? descData.short : '',
@@ -233,23 +233,23 @@ const ClassEdit = ({
 
         let detailVariableData = {
           id: docId,
-          collectionName: 'Topology',
+          collectionName: 'Materials',
           version: resources.docState.version + 1,
           data: detailData
         };
 
         let topologyVariableData = {
           id: resources['_id'],
-          collectionName: 'Topologies',
+          collectionName: 'Materials',
           version: resources.docState.version + 2,
           topology: topologyData
         };
 
         let avatarVariableData = {
           id: resources['_id'],
-          collectionName: 'Topologies',
+          collectionName: 'Materials',
           version: resources.docState.version + 3,
-          type: 'state',
+          type: 'class',
           url: avatarS3URL
         };
 
@@ -317,7 +317,7 @@ const ClassEdit = ({
           await deleteDocument({
             variables: {
               id: resources['_id'],
-              collectionName: 'Topologies'
+              collectionName: 'Materials'
             }
           });
           const notiOps = getNotificationOpt('class', 'success', 'delete');

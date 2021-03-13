@@ -42,8 +42,8 @@ const MaterialContainer = ({ history, match }) => {
 
   const variables = {
     id: null,
-    collectionName: 'Classes',
-    type: 'material',
+    collectionName: 'Materials',
+    // type: 'material',
     // parent: null,
     nam: null
   };
@@ -82,7 +82,7 @@ const MaterialContainer = ({ history, match }) => {
 
   const classVariables = {
     id: null,
-    collectionName: 'Topologies',
+    collectionName: 'Materials',
     type: 'class',
     nam: null
   };
@@ -224,6 +224,7 @@ const MaterialContainer = ({ history, match }) => {
   }, [classLoading, classError, classData]);
 
   useEffect(() => {
+    console.log('loadedData:', loadedData);
     if (!loading && !error) {
       const { grouping } = data;
       setLoadedData(grouping);
@@ -244,7 +245,7 @@ const MaterialContainer = ({ history, match }) => {
     if (context) {
       if (context.groupingAdd) {
         const { collectionName, type } = context.groupingAdd;
-        if (collectionName === 'Classes' && type === 'material') {
+        if (collectionName === 'Materials') {
           setLoadedData([...loadedData, context.groupingAdd]);
           setContext({
             ...context,
@@ -254,7 +255,7 @@ const MaterialContainer = ({ history, match }) => {
       }
       if (context.documentDelete) {
         const { _id, collectionName } = context.documentDelete;
-        if (collectionName === 'Classes') {
+        if (collectionName === 'Materials') {
           if (editPanelData && _id === editPanelData['_id']) setShowEdit(false);
           const tmp = loadedData.filter((el) => el['_id'] !== _id);
           setLoadedData(tmp);
@@ -268,7 +269,7 @@ const MaterialContainer = ({ history, match }) => {
 
       if (context.groupingUpdate) {
         const { _id, collectionName, type } = context.groupingUpdate;
-        if (collectionName === 'Classes' && type === 'material') {
+        if (collectionName === 'Materials') {
           const tmp = loadedData;
           const idx = tmp.findIndex((el) => el['_id'] === _id);
           // if (idx > -1) {
@@ -296,7 +297,7 @@ const MaterialContainer = ({ history, match }) => {
           await updateGroupingDocState({
             variables: {
               id: el['_id'],
-              collectionName: 'Classes',
+              collectionName: 'Materials',
               version: el['docState'].version,
               state: null
             }
@@ -368,7 +369,7 @@ const MaterialContainer = ({ history, match }) => {
         await updateGroupingDocState({
           variables: {
             id: editPanelData['_id'],
-            collectionName: 'Classes',
+            collectionName: 'Materials',
             version: editPanelData.docState.version,
             state: null,
             authorId: null
@@ -410,6 +411,7 @@ const MaterialContainer = ({ history, match }) => {
         setSelectedTreeItem={setSelectedTreeItem}
         createGrouping={createGrouping}
         updateGroupingRename={updateGroupingRename}
+        classLoadedData={classLoadedData}
       />
       {showEdit && (
         <MaterialEdit
