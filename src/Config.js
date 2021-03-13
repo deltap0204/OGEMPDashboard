@@ -21,7 +21,8 @@ export default {
   },
   auth: {
     loginUrl: process.env.REACT_APP_AUTH_COGNITO_URL,
-    bottomLogo: process.env.REACT_APP_LOGIN_BOTTOM_LOGO
+    bottomLogo: process.env.REACT_APP_LOGIN_BOTTOM_LOGO,
+    profileImage: process.env.REACT_APP_PROFILE_IMAGE
   },
   signedUrl: {
     endpoint: process.env.REACT_APP_SIGNED_URL_ENDPOINT,
