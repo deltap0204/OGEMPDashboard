@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   bottomlogo: {
-    width: '200px',
+    width: '180px',
     height: '80px'
   },
   loginButton: {
