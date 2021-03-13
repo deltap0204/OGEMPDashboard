@@ -172,10 +172,9 @@ const LoginContainer = () => {
           />
           <Link
             className={classes.linktextleft}
-            rel="noopener"
+            rel="noreferrer"
             target="_blank"
             onClick={handlePageChange}
-            target="_blank"
           >
             Trouble Logging in? Contact Support.
           </Link>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Box } from '@material-ui/core';
 import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
 import AppContext from '@app/AppContext';
@@ -45,6 +45,8 @@ const DistrictEdit = ({
   const [detailData, setDetailData] = useState({});
   const [tabStatus, setTabStatus] = useState({});
   const [currentTab, setCurrentTab] = useState(0);
+  const [tmpStudentURL, setTmpStudentURL] = useState('');
+  const [tmpTeacherURL, setTmpTeacherURL] = useState('');
   const [panelSize, setPanelSize] = useState({
     width: 0,
     height: 0
@@ -418,7 +420,32 @@ const DistrictEdit = ({
           </Grid>
         )}
 
+<<<<<<< HEAD
         {tabStatus.students && <MassFileUploadForm />}
+=======
+        {tabStatus.students && (
+          <React.Fragment>
+            <MassFileUploadForm
+              docId={resources['_id']}
+              onChange={(value) => setTmpStudentURL(value)}
+            />
+            <Box width="100%" padding="20px">
+              {tmpStudentURL}
+            </Box>
+          </React.Fragment>
+        )}
+        {tabStatus.teachers && (
+          <React.Fragment>
+            <MassFileUploadForm
+              docId={resources['_id']}
+              onChange={(value) => setTmpTeacherURL(value)}
+            />
+            <Box width="100%" padding="20px">
+              {tmpTeacherURL}
+            </Box>
+          </React.Fragment>
+        )}
+>>>>>>> dev
       </Grid>
       <CustomDialog
         open={openDelete}
