@@ -112,8 +112,10 @@ const LoginContainer = () => {
   };
 
   const handlePageChange = () => {
-    window.location.href =
-      'https://sig-emp.atlassian.net/servicedesk/customer/portals';
+    window.open(
+      'https://sig-emp.atlassian.net/servicedesk/customer/portals',
+      '_blank'
+    );
   };
 
   return (
