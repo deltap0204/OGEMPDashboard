@@ -36,8 +36,7 @@ const DiagnosticsDialog = ({ open, title, style, children, setOpenDialog }) => {
       </DialogContent>
       <DialogActions>
         <Button
-          variant="contained"
-          color="secondary"
+          color="primary"
           onClick={() => {
             setOpenDialog(false);
           }}
