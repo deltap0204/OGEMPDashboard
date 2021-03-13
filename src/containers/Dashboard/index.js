@@ -1,10 +1,23 @@
-import React from 'react';
-import { Box } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Box, Button } from '@material-ui/core';
 import useStyles from './style';
+import { DiagnosticsDialog } from '@app/components/Custom';
 
 const DashboardContainer = () => {
   const classes = useStyles();
-  return <Box className={classes.root}>Dashboard Container</Box>;
+  const [openCreate, setOpenDialog] = useState(false);
+  return (
+    <Box className={classes.root}>
+      Dashboard Container
+      <Button onClick={() => setOpenDialog(true)}>View Diagnostics</Button>
+      <DiagnosticsDialog
+        open={openCreate}
+        title="Diagnostics"
+        setOpenDialog={setOpenDialog}
+        children={'a'}
+      ></DiagnosticsDialog>
+    </Box>
+  );
 };
 
 export default DashboardContainer;

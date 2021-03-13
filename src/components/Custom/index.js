@@ -8,4 +8,5 @@ export { default as CustomCheckBox } from './CheckBox';
 export { default as CustomButton } from './Button';
 export { default as CustomNumberInput } from './NumberInput';
 export { default as CustomRadioButtonsGroup } from './RadioButton';
+export { default as DiagnosticsDialog } from './Diagnostics';
 // export { default as CustomTabs } from './Tabs';
