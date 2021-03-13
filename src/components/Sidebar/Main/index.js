@@ -37,6 +37,7 @@ import {
   faUsersCog
 } from '@fortawesome/free-solid-svg-icons';
 import { setMenuListByRole } from './Menu';
+import { Logout } from '../Logout/index';
 import useStyles from './style';
 import { Auth } from 'aws-amplify';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
@@ -125,8 +126,8 @@ const MainSidebar = ({ open, onChange, location }) => {
 
   const actionElements = [
     { icon: faInfoCircle, text: 'Tutorials', url: '/tutorials' },
-    { icon: faCog, text: 'Settings', url: '/settings' },
-    { icon: faSignOutAlt, text: 'Logout', url: '/' }
+    { icon: faCog, text: 'Settings', url: '/settings' }
+    // { icon: faSignOutAlt, text: 'Logout', url: '/' }
   ];
 
   useEffect(() => {
@@ -210,6 +211,8 @@ const MainSidebar = ({ open, onChange, location }) => {
           />
         ))}
       </List>
+
+      <Logout />
     </Drawer>
   );
 };
