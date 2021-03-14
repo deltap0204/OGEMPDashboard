@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   main: {
     overflowY: 'auto',
-    height: 'calc(100vh - 160px) ',
+    height: '100%',
     overflowX: 'hidden'
   },
   sliderMenu: {

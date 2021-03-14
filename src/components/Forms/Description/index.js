@@ -13,7 +13,7 @@ import {
 } from '@app/components/Text';
 import * as globalStyles from '@app/constants/globalStyles';
 
-const DescriptionForm = ({ disable, resources, onChange }) => {
+const DescriptionForm = ({ disable, resources, onChange, helperText }) => {
   const classes = globalStyles.DescCardStyle();
   const [loadedData, setLoadedData] = useState({
     title: '',
@@ -67,7 +67,7 @@ const DescriptionForm = ({ disable, resources, onChange }) => {
             <ShortText heading="" value={loadedData.short} />
             <LongText heading="" value={loadedData.long} />
           </DescriptionCard>
-          <EditHelperText />
+          {helperText && <EditHelperText />}
         </React.Fragment>
       ) : (
         <Grid>
@@ -122,8 +122,7 @@ const DescriptionForm = ({ disable, resources, onChange }) => {
               onChange={(value) => handleInputChange('long', value)}
             />
           </DefaultCard>
-
-          <SaveHelperText />
+          {helperText && <SaveHelperText />}
         </Grid>
       )}
     </React.Fragment>

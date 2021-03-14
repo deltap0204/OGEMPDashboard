@@ -349,8 +349,8 @@ const SchoolEdit = ({
       tabSetting={{
         desc: true,
         topology: true,
-        people: true,
-        right: true,
+        people: false,
+        right: false,
         teachers: false,
         students: false
       }}

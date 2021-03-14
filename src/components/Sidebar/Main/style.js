@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2)
   },
   elList: {
-    minHeight: `calc(100vh - 190px)`
+    minHeight: `calc(100vh - 250px)`
   },
   listItems: {
     color: theme.palette.primary.contrastText,

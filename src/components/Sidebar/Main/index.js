@@ -219,8 +219,7 @@ const MainSidebar = ({ open, onChange, location }) => {
         ))}
       </List>
 
-      {/* <UserProfileCard /> */}
-      {/* <Logout onClicklogout={() => logout()} /> */}
+      <UserProfileCard />
     </Drawer>
   );
 };

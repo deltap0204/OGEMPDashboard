@@ -23,6 +23,7 @@ import {
 } from '@app/components/Forms';
 import { DefaultCard } from '@app/components/Cards';
 import * as globalStyles from '@app/constants/globalStyles';
+import clsx from 'clsx';
 
 const MaterialEdit = ({
   forceSaveDocId,
@@ -488,21 +489,26 @@ const MaterialEdit = ({
         alignItems="flex-start"
       >
         <Grid item xs={12} sm={12} md={12} lg={8}>
-          <DefaultCard className={classes.editPanelCard}>
-            <AvatarUploadForm
-              disable={!canUpdate}
-              resources={avatarS3URL}
-              docId={resources['_id']}
-              acceptedFiles={['image/png']}
-              onChange={(value) => handleFormChange('avatarUpload', value)}
-            />
+          <AvatarUploadForm
+            disable={!canUpdate}
+            resources={avatarS3URL}
+            docId={resources['_id']}
+            acceptedFiles={['image/png']}
+            onChange={(value) => handleFormChange('avatarUpload', value)}
+          />
 
-            <DescriptionForm
-              disable={!canUpdate}
-              resources={descData}
-              onChange={(value) => handleFormChange('description', value)}
-            />
-
+          <DescriptionForm
+            disable={!canUpdate}
+            resources={descData}
+            onChange={(value) => handleFormChange('description', value)}
+            helperText={false}
+          />
+          <DefaultCard
+            className={clsx({
+              [classes.editPanelHtmlCard1]: canUpdate,
+              [classes.editPanelHtmlCard]: !canUpdate
+            })}
+          >
             <TextEditor
               disable={!canUpdate}
               docId={resources['_id']}
@@ -513,15 +519,16 @@ const MaterialEdit = ({
         </Grid>
 
         <Grid item xs={12} sm={12} md={12} lg={4}>
-          <DefaultCard className={classes.editPanelCard}>
+          <DefaultCard className={classes.editPanelTagCard}>
+            <MultiTagsForm />
+          </DefaultCard>
+          <DefaultCard className={classes.editPanelAttachCard}>
             <AttachmentForm
               disable={!canUpdate}
               docId={resources['_id']}
               resources={resources.assetURLs}
               onChange={handleAttFormChange}
             />
-
-            <MultiTagsForm />
           </DefaultCard>
         </Grid>
       </Grid>

@@ -30,7 +30,7 @@ const TextEditor = ({ disable, docId, resources, onChange }) => {
     const currentContent = convertToRaw(value.getCurrentContent());
     onChange(currentContent);
   };
-  console.log('disabled:', disable);
+
   return (
     <React.Fragment>
       {disable ? (
@@ -42,17 +42,15 @@ const TextEditor = ({ disable, docId, resources, onChange }) => {
           />
         )
       ) : (
-        <DefaultCard style={classes.root}>
-          <Editor
-            readOnly={disable}
-            toolbar={toolbarData}
-            editorState={editorState}
-            toolbarClassName={classes.toolbarArea}
-            wrapperClassName={classes.wrapperArea}
-            editorClassName={classes.editorArea}
-            onEditorStateChange={handleEditorStateChange}
-          />
-        </DefaultCard>
+        <Editor
+          readOnly={disable}
+          toolbar={toolbarData}
+          editorState={editorState}
+          toolbarClassName={classes.toolbarArea}
+          wrapperClassName={classes.wrapperArea}
+          editorClassName={classes.editorArea}
+          onEditorStateChange={handleEditorStateChange}
+        />
       )}
     </React.Fragment>
   );

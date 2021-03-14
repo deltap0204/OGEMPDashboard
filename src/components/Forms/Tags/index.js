@@ -36,23 +36,24 @@ const MultiTagsForm = ({ disable }) => {
 
   return (
     <Box className={classes.root}>
-      <fieldset
+      {/* <fieldset
         style={{ border: `1px solid ${theme.palette.blueGrey['300']}` }}
-      >
-        <legend>Tags</legend>
-        <Select
-          closeMenuOnSelect={false}
-          components={animatedComponents}
-          defaultValue={selectedValue}
-          isMulti
-          options={option}
-          styles={colourStyles}
-          id="demo-simple-select-label"
-          isDisabled={disable}
-          onInputChange={handleChange}
-          onKeyDown={onKeyDown}
-        />
-      </fieldset>
+      > */}
+      {/* <legend>Tags</legend> */}
+      <Select
+        placeholder="Tags..."
+        closeMenuOnSelect={false}
+        components={animatedComponents}
+        defaultValue={selectedValue}
+        isMulti
+        options={option}
+        styles={colourStyles}
+        id="demo-simple-select-label"
+        isDisabled={disable}
+        onInputChange={handleChange}
+        onKeyDown={onKeyDown}
+      />
+      {/* </fieldset> */}
     </Box>
   );
 };

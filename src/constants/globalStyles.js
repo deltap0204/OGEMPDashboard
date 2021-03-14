@@ -37,7 +37,8 @@ export const globaluseStyles = makeStyles((theme) => ({
   },
   descCard: {
     width: '100%',
-    background: theme.palette.blueGrey['50']
+    background: theme.palette.blueGrey['50'],
+    marginBottom: theme.spacing(2)
   },
   state: {
     fontSize: 12,
@@ -86,8 +87,21 @@ export const globaluseStyles = makeStyles((theme) => ({
     height: 72,
     backgroundSize: 'contain'
   },
-  editPanelCard: {
-    minHeight: 'calc(100vh - 185px);',
+  editPanelHtmlCard: {
+    minHeight: 'calc(100vh - 370px);',
+    backgroundColor: theme.palette.blueGrey['50']
+  },
+  editPanelHtmlCard1: {
+    minHeight: 'calc(100vh - 453px);',
+    backgroundColor: theme.palette.blueGrey['50']
+  },
+  editPanelTagCard: {
+    minHeight: theme.spacing(12),
+    backgroundColor: theme.palette.blueGrey['50']
+  },
+  editPanelAttachCard: {
+    marginTop: theme.spacing(2),
+    minHeight: 'calc(100vh - 259px)',
     backgroundColor: theme.palette.blueGrey['50']
   }
 }));

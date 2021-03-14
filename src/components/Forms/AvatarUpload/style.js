@@ -3,17 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     flex: 1,
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(2)
   },
   shadowRoot: {
     flex: 1,
     boxShadow:
       '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)'
   },
+  dropzoneCard: {
+    background: theme.palette.blueGrey['50']
+  },
   dropzone: {
     width: '100%',
     minHeight: theme.spacing(10),
-    background: theme.palette.blueGrey['100'],
+    // background: theme.palette.blueGrey['50'],
     outline: 'none',
     border: 'none',
     display: 'flex',

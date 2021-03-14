@@ -4,7 +4,7 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import { Box, IconButton, LinearProgress } from '@material-ui/core';
 import { Img } from 'react-image';
 import { Close } from '@material-ui/icons';
-import { LoadingCard } from '@app/components/Cards';
+import { DefaultCard, LoadingCard } from '@app/components/Cards';
 import { getBase64 } from '@app/utils/file-manager';
 import useStyles from './style';
 import { useSnackbar } from 'notistack';
@@ -89,16 +89,18 @@ const AvatarUploadForm = ({
           </IconButton>
         </LoadingCard>
       ) : (
-        <DropzoneArea
-          dropzoneText="Drag and Drop an Image"
-          dropzoneClass={classes.dropzone}
-          dropzoneParagraphClass={classes.dropzoneParagraph}
-          showPreviewsInDropzone={false}
-          showPreviews={false}
-          acceptedFiles={acceptedFiles ? acceptedFiles : ['image/*']}
-          filesLimit={1}
-          onChange={handleChange}
-        />
+        <DefaultCard className={classes.dropzoneCard}>
+          <DropzoneArea
+            dropzoneText="Drag and Drop an Image"
+            dropzoneClass={classes.dropzone}
+            dropzoneParagraphClass={classes.dropzoneParagraph}
+            showPreviewsInDropzone={false}
+            showPreviews={false}
+            acceptedFiles={acceptedFiles ? acceptedFiles : ['image/*']}
+            filesLimit={1}
+            onChange={handleChange}
+          />
+        </DefaultCard>
       )}
     </Box>
   );

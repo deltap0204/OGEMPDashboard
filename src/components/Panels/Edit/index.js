@@ -59,9 +59,7 @@ const EditPanel = ({
             {tabSetting.topology && (
               <Tab label="Topology" className={classes.tab} />
             )}
-            {tabSetting.people && (
-              <Tab label="Users" className={classes.tab} />
-            )}
+            {tabSetting.people && <Tab label="Users" className={classes.tab} />}
             {tabSetting.htmlEditor && (
               <Tab label="HTML Editor" className={classes.tab} />
             )}
@@ -84,7 +82,7 @@ const EditPanel = ({
           </Tabs>
         </Paper>
       )}
-      <Box p={1}>
+      <Box p={1} height={'100%'}>
         <div className={classes.toolbar}>
           <Typography variant="subtitle1" style={{ fontWeight: 500 }}>
             {title}

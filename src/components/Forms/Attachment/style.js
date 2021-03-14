@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     flex: 1,
-    padding: theme.spacing(2),
+    // padding: theme.spacing(2),
     minHeight: 200
   },
   icon: {
@@ -13,20 +13,24 @@ const useStyles = makeStyles((theme) => ({
     height: 2
   },
   content: {
-    paddingTop: 0,
-    paddingBottom: theme.spacing(1),
-    minHeight: 250,
-    maxHeight: 450,
+    marginTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    minHeight: 'calc(100vh - 310px)',
+    // minHeight: 250,
+    // maxHeight: 450,
     overflowY: 'auto',
-    overflowX: 'hidden'
+    overflowX: 'hidden',
+    background: '#fff'
   },
   contendDroping: {
-    minHeight: 250,
-    maxHeight: 300,
+    // minHeight: 250,
+    // maxHeight: 300,
+    minHeight: 'calc(100vh - 310px)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    filter: 'blur(1px)'
+    filter: 'blur(1px)',
+    background: '#fff'
   },
   listItems: {
     cursor: 'pointer',

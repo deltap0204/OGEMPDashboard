@@ -4,13 +4,21 @@ import theme from '@app/styles/theme';
 const useStyles = makeStyles((theme) => ({
   root: {
     flex: 1,
-    padding: theme.spacing(1),
+    // padding: theme.spacing(1),
 
-    backgroundColor: theme.palette.blueGrey['50']
+    backgroundColor: theme.palette.blueGrey['50'],
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: theme.spacing(10)
   }
 }));
 
 const colourStyles = {
+  container: (styles) => ({
+    ...styles,
+    width: '100%'
+  }),
   control: (styles) => ({
     ...styles,
     backgroundColor: 'white',
