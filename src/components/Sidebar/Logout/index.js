@@ -69,21 +69,7 @@ export const Logout = (props) => {
 
   return (
     <div>
-      {/* <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-      >
-        Open Menu
-      </Button> */}
       <div className={classes.profileImage}>
-        {/* <Avatar
-          className={classes.profileImageMain}
-          alt="Profile"
-          onClick={handleClick}
-          src={config.auth.profileImage}
-        /> */}
         <FontAwesomeIcon
           icon={faUser}
           className={classes.profileImageAvatar}
@@ -99,8 +85,6 @@ export const Logout = (props) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        // anchorOrigin={{ vertical: "right", horizontal: "center" }}
-        // transformOrigin={{ vertical: "right", horizontal: "center" }}
         style={{ left: '180px', top: '2px' }}
         className={classes.profileMenus}
       >

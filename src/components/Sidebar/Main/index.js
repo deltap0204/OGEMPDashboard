@@ -38,9 +38,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { setMenuListByRole } from './Menu';
 import { Logout } from '../Logout/index';
+import { UserProfileCard } from '@app/components/Cards';
 import useStyles from './style';
 import { Auth } from 'aws-amplify';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import User from '@app/containers/User';
 
 const Menu = ({ el, selected, handleSelected, openMenu }) => {
   const classes = useStyles();
@@ -217,7 +219,8 @@ const MainSidebar = ({ open, onChange, location }) => {
         ))}
       </List>
 
-      <Logout onClicklogout={() => logout()} />
+      {/* <UserProfileCard /> */}
+      {/* <Logout onClicklogout={() => logout()} /> */}
     </Drawer>
   );
 };
