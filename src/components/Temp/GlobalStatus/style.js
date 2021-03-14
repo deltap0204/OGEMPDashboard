@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     fontSize: 13,
     color: theme.palette.blueGrey['600'],
-    fontWeight: 500
+    fontWeight: 500,
+    marginLeft: '78vw'
   }
 }));
 

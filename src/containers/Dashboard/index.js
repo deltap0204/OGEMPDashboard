@@ -12,7 +12,7 @@ const DashboardContainer = () => {
         Dashboard Container
       </Typography>
 
-      <Typography variant="button" display="block" gutterBottom>
+      {/* <Typography variant="button" display="block" gutterBottom>
         <Button
           l="4rem"
           onClick={() => setOpenDialog(true)}
@@ -21,12 +21,12 @@ const DashboardContainer = () => {
         >
           View Diagnostics
         </Button>
-      </Typography>
-      <DiagnosticsDialog
+      </Typography> */}
+      {/* <DiagnosticsDialog
         open={openCreate}
         title="Diagnostics"
         setOpenDialog={setOpenDialog}
-      ></DiagnosticsDialog>
+      ></DiagnosticsDialog> */}
     </Box>
   );
 };

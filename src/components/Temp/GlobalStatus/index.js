@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Divider, Typography } from '@material-ui/core';
 import { useStateContext } from '@app/providers/StateContext';
+import IconButton from '@material-ui/core/IconButton';
 import useStyles from './style';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import versionData from '@app/version.json';
+import Slider from '../../Custom/Diagnostics/slider';
 
 const GlobalStatus = ({ width }) => {
   const classes = useStyles();
   const [stateContext] = useStateContext();
+  const [slider, setSlider] = useState(false);
 
+  function sliderClicked() {
+    setSlider(!slider);
+  }
   return (
     <Box className={classes.root}>
       <Divider />
+      {slider && (
+        <Slider
+          slider={slider}
+          sliderClicked={sliderClicked}
+          stateContext={stateContext}
+        />
+      )}
       <Box
         display="flex"
         justifyContent="space-between"
@@ -19,31 +33,10 @@ const GlobalStatus = ({ width }) => {
         pr={3}
         height={40}
       >
-        <Typography variant="subtitle1">
-          <em>
-            <b>State: </b>
-          </em>
-          {stateContext.state?.name || 'null'} &nbsp;
-          <em>
-            <b>Station: </b>
-          </em>
-          {stateContext.station?.name || 'null'} &nbsp;
-          <em>
-            <b>District: </b>
-          </em>
-          {stateContext.district?.name || 'null'} &nbsp;
-          <em>
-            <b>School: </b>
-          </em>
-          {stateContext.school?.name || 'null'} &nbsp;
-          <em>
-            <b>Class: </b>
-          </em>
-          {stateContext.class?.name || 'null'} &nbsp;
-        </Typography>
         <p className={classes.p}>
-          <b>Version: {versionData?.version || 'null'}</b> &nbsp;
-          <b>Branch: {versionData?.branch || 'null'}</b>
+          <IconButton aria-label="info" onClick={sliderClicked}>
+            <InfoOutlinedIcon fontSize="medium" />
+          </IconButton>
         </p>
       </Box>
     </Box>
