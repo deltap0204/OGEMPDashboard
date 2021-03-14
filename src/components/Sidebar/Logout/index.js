@@ -10,6 +10,8 @@ import useStyles from './style';
 import config from '@app/Config';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const StyledMenu = withStyles({
   paper: {
@@ -76,11 +78,16 @@ export const Logout = (props) => {
         Open Menu
       </Button> */}
       <div className={classes.profileImage}>
-        <Avatar
+        {/* <Avatar
           className={classes.profileImageMain}
           alt="Profile"
           onClick={handleClick}
           src={config.auth.profileImage}
+        /> */}
+        <FontAwesomeIcon
+          icon={faUser}
+          className={classes.profileImageAvatar}
+          onClick={handleClick}
         />
         <ArrowForwardIosIcon
           className={classes.profileArrow}

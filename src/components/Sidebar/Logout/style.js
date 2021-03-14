@@ -65,6 +65,10 @@ const useStyles = makeStyles((theme) => ({
     width: '40px',
     borderRadius: '50%'
   },
+  profileImageAvatar: {
+    height: '32px !important',
+    width: '32px !important'
+  },
   profileArrow: {
     color: '#fff'
   },
