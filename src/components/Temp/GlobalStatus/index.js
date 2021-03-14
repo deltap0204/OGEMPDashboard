@@ -4,8 +4,7 @@ import { useStateContext } from '@app/providers/StateContext';
 import IconButton from '@material-ui/core/IconButton';
 import useStyles from './style';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import versionData from '@app/version.json';
-import Slider from '../../Custom/Diagnostics/slider';
+import Slider from '../../Custom/Diagnostics';
 
 const GlobalStatus = ({ width }) => {
   const classes = useStyles();

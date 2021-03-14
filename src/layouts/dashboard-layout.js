@@ -147,7 +147,6 @@ const DashboardLayout = (props) => {
       <MainSidebar open={openLeft} onChange={handleSidebar} />
       <main className={classes.content}>
         <div className={classes.pageWrapper}>{props.children}</div>
-        {/* <Footer type="dashboard" /> */}
         <TempGlobalStatus />
       </main>
       <SecondarySidebar type={type} open={openRight} />
