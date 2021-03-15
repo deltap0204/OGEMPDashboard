@@ -137,7 +137,8 @@ const ClassEdit = ({
       setTabStatus({
         desc: true,
         topology: false,
-        people: false,
+        teachers: false,
+        students: false,
         right: false
       });
     }
@@ -146,7 +147,7 @@ const ClassEdit = ({
       setTabStatus({
         desc: false,
         topology: true,
-        teachers: true,
+        teachers: false,
         students: false,
         right: false
       });
@@ -422,13 +423,9 @@ const ClassEdit = ({
             {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
           </Grid>
         )}
+        {tabStatus.teachers && <>Teacher</>}
 
-        {tabStatus.people && (
-          <Grid item xs={12} sm={12} md={12} lg={10}>
-            <ContactForm />
-            {!canUpdate ? <EditHelperText /> : <SaveHelperText />}
-          </Grid>
-        )}
+        {tabStatus.students && <>Student</>}
       </Grid>
       <CustomDialog
         open={openDelete}
