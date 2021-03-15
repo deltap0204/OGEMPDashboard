@@ -21,14 +21,14 @@ const UserProfile = () => {
 
   useEffect(() => {
     const loadUser = () => {
-      return Auth.currentAuthenticatedUser({ bypassCache: true });
+      return Auth.currentUserInfo({ bypassCache: true });
     };
 
     const onLoad = async () => {
       try {
-        const user = await loadUser();
-        console.log(user);
-        setUser(user.attributes);
+        const currentUser = await loadUser();
+        console.log(currentUser);
+        setUser(currentUser.attributes);
       } catch (err) {
         console.log(err);
       }
