@@ -88,7 +88,8 @@ export const globaluseStyles = makeStyles((theme) => ({
     backgroundSize: 'contain'
   },
   editPanelHtmlCard: {
-    minHeight: 'calc(100vh - 370px);',
+    // minHeight: 'calc(100vh - 370px);',
+    minHeight: 'calc(100vh - 442px);',
     backgroundColor: theme.palette.blueGrey['50']
   },
   editPanelHtmlCard1: {

@@ -65,20 +65,27 @@ const AvatarUploadForm = ({
       })}
     >
       {disable ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          className={classes.imageArea}
-        >
-          <Img
-            src={resources}
-            className={classes.media}
-            loader={<LinearProgress />}
-          />
-        </Box>
+        <DefaultCard className={classes.dropzoneCard}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            className={classes.imageArea}
+          >
+            No Image
+            {/* <Img
+              src={resources}
+              className={classes.media}
+              loader={<LinearProgress />}
+            /> */}
+          </Box>
+        </DefaultCard>
       ) : loadedData ? (
-        <LoadingCard loading={loading} style={classes.preview} isShadow={false}>
+        <LoadingCard
+          loading={loading}
+          style={classes.preview1}
+          isShadow={false}
+        >
           <Img
             src={loadedData}
             className={classes.media}

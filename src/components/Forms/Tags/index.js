@@ -43,7 +43,10 @@ const MultiTagsForm = ({ disable }) => {
       <Select
         placeholder="Tags..."
         closeMenuOnSelect={false}
-        components={animatedComponents}
+        components={
+          (animatedComponents,
+          { DropdownIndicator: () => null, IndicatorSeparator: () => null })
+        }
         defaultValue={selectedValue}
         isMulti
         options={option}

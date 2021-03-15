@@ -30,8 +30,9 @@ const useStyles = makeStyles((theme) => ({
   imageArea: {
     position: 'relative',
     borderRadius: theme.spacing(1),
-    padding: theme.spacing(1)
-    // minHeight: theme.spacing(8)
+    padding: theme.spacing(1),
+    minHeight: theme.spacing(10),
+    background: '#fff'
   },
   closeButton: {
     position: 'absolute',
@@ -39,10 +40,17 @@ const useStyles = makeStyles((theme) => ({
     top: -5
   },
   media: {
-    height: 75,
+    height: theme.spacing(10),
     backgroundSize: 'contain'
   },
   preview: {
+    paddingBottom: theme.spacing(2),
+    // display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+    // position: 'relative'
+  },
+  preview1: {
     padding: theme.spacing(2),
     display: 'flex',
     justifyContent: 'center',

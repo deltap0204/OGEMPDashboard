@@ -38,6 +38,7 @@ const TextEditor = ({ disable, docId, resources, onChange }) => {
           <Editor
             readOnly={disable}
             editorState={editorState}
+            wrapperClassName={classes.wrapperArea}
             toolbarClassName={classes.hiddentoolbarArea}
           />
         )
